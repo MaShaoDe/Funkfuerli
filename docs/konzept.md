@@ -94,7 +94,7 @@ Die Akkufrage bleibt offen. Die Varianten liegen vor und werden im Prototyp verg
 ## 7. Audio
 Der Ton soll auf drei Wegen hörbar sein:
 
-1. **Interner Lautsprecher** (Standard): Lautsprecher mit Gehäuse (Resonanzraum, Bassreflex-Öffnung nicht abdecken), an den 4 Befestigungsohren am Gehäuse verschraubt, nicht über die Platine. Impedanz und Leistung sind noch zu klären.
+1. **Interner Lautsprecher** (Standard): Visaton K 50 (Art. 2901), 8 Ω, 2 W, 250 bis 10000 Hz, 50 x 17 mm, Schallwandöffnung 45 mm (laut Datenblatt). Für Sprache und Radio ausreichend und günstig. Er sitzt in einem geschlossenen, abgedichteten Resonanzraum im 3D-gedruckten Gehäuse und ist am Gehäuse befestigt, nicht über die Platine. Variante: Lautsprecher mit eigenem Gehäuse (mehr Bass, grösser), an den 4 Befestigungsohren am Gehäuse verschraubt, Bassreflex-Öffnung nicht abdecken. Impedanz und Leistung dieser Variante sind noch zu klären.
 2. **3.5-mm-Buchse für Kopfhörer und Line-Out**: Beim Einstecken schaltet der Schaltkontakt den internen Lautsprecher ab (der Minuspol des Lautsprechers darf dabei nicht an Masse, siehe Verstärker). Immer stereo, direkt vom Si4732. Damit lassen sich auch Stereoanlage oder aktiver Lautsprecher per Kabel anschliessen. Für den Line-Out ist ein Audio-Übertrager (1:1) gegen Brummschleifen als Option zu testen.
 3. **Bluetooth zu Boombox oder externem Lautsprecher** (Option):
    * Bluetooth-Audio (A2DP) braucht Bluetooth Classic. Der S3 hat nur BLE und kann daher nicht direkt an einen Bluetooth-Lautsprecher senden (im Datenblatt prüfen).
@@ -153,7 +153,7 @@ Regeln:
 * Öffnungen: Display-Fenster, Encoder-Knopf, Lautstärke-Poti (Variante), Lautsprecher-Gitter, BNC-Buchse, Teleskopantenne, 3.5-mm-Klinke, USB-C, Taster für Bluetooth.
 * Ferritstab ausserhalb der Platine am Gehäuserand, mit definierter Ausrichtung, weit weg von Akku und Lautsprecher.
 * Akku in eigener Kammer mit Trennwand. Die Wand trägt die Last der Zelle, nicht die Platine.
-* Lautsprecher mit Gehäuse an den 4 Ohren verschraubt, Bassreflex-Öffnung frei.
+* Lautsprecher K 50 in geschlossenem Resonanzraum, am Gehäuse befestigt. Variante mit Lautsprecher-Box: an den 4 Ohren verschraubt, Bassreflex-Öffnung frei.
 * Robust: abgerundete Kanten, Wandstärke ca. 2 bis 2.4 mm.
 * Quelldaten im Repo: parametrisches CAD (OpenSCAD oder FreeCAD), dazu STEP und STL. Druckzeit höchstens ca. 2 bis 3 Stunden pro Gehäuse.
 * Kurssatz: 10 bis 20 Gehäuse vorab im Club oder FabLab drucken, ein Mustergehäuse in Endfarbe.
@@ -188,6 +188,7 @@ Prinzipien:
 Vom Fork vorhanden: Senderliste (EIBI), Speicherplätze, Bandscan, Batterieanzeige, WLAN mit Webseite, OTA, BLE, zwei Anzeige-Layouts.
 
 Zusätzlich vorgesehen:
+* **Abstimmung:** Drehencoder mit Fein- und Grobschritt je Band (Richtwerte UKW 50 bis 100 kHz, MW 9 kHz, KW 5 kHz, jeweils feinerer Schritt per Klick, Werte prüfen), optional Beschleunigung bei schnellem Drehen, dazu Speicherplätze. Hintergrund: Bei einem getesteten analogen Bausatz mit Poti-Abstimmung ist die Feinabstimmung kaum möglich.
 * **Kindermodus:** nur 3 Bänder, grosse Frequenzanzeige, wenige Tasten, Schweizer Sender als Voreinstellung (Speicherplätze).
 * **Auto-Aus und Sleep-Timer**, damit der Akku nicht leer läuft.
 * **Akkuanzeige** gross, mit Warnung.
@@ -202,11 +203,11 @@ Zusätzlich vorgesehen:
 3. Display 2.0" ST7789V (240x320): Pins, Stiftleiste, Anpassung von Auflösung und Layout im Fork (Original 320x170).
 4. Akku offen: Kapazität der NCR18650B und der 14500 messen, Aufdrucke der Schutzplatine des LiPo lesen, Stecker (JST) und Verpolschutz, Vergleich im Prototyp (Falltest, Laufzeit, Aufwand beim Zusammenbau, Preis).
 5. Spannungsregler: Typ klären. Einspeisung des ESP32-Moduls mit 3.3 V oder 5 V entscheiden.
-6. Verstärker HW-012 (PAM8403): Pegel, Eingangsimpedanz, Standby. Lautsprecher: Ohm, Watt, Masse. Lautstärke per Poti oder Software.
+6. Verstärker HW-012 (PAM8403): Pegel, Eingangsimpedanz, Standby. Lautsprecher K 50: Resonanzraum auslegen. Lautsprecher-Box (Variante): Ohm, Watt, Masse. Lautstärke per Poti oder Software.
 7. Bluetooth-Audio: externes Sendemodul oder klassischer ESP32 mit A2DP? Bluetooth-Classic-Angabe im Datenblatt bestätigen.
 8. ATS Mini: Maintainer fragen wegen Sunnygold-Code und SSB-Patch-Weitergabe, bevor kostenpflichtige Kurse laufen. ESP32-SDR und ESP32-A1S-Tayloe haben keine Lizenzdatei.
 9. Anschluss des Ferritstabs am Si4732 und Umschaltung FM/AM klären (Datenblatt).
-10. Kursgrösse, Dauer, Materialkosten pro Teilnehmer.
+10. Kursgrösse, Dauer, Materialkosten pro Teilnehmer. Ein Kostenziel wird noch nicht festgelegt, erst nach der Stückliste. Zum Vergleich: Ein kommerzieller analoger Radio-Bausatz kostet etwa 50 CHF.
 11. Welcher Drucker und welcher Bauraum im Club und im FabLab? CAD-Werkzeug festlegen.
 12. Namensprüfung (Swissreg/IGE und GitHub) vor der Veröffentlichung.
 13. Kleber für Bauteile festlegen (Heissleim, neutral vernetzendes Silikon, Epoxid).
@@ -222,3 +223,4 @@ Zusätzlich vorgesehen:
 * turi2 (UKW-Konzessionen 2027 bis 2031)
 * ATS Mini: github.com/esp32-si4732/ats-mini (LICENSE: MIT) und Doku esp32-si4732.github.io/ats-mini
 * PU2CLR SI4735: pu2clr.github.io/SI4735 (MIT)
+* Visaton K 50 (Art. 2901): Datenblatt von Visaton, z.B. bei ELV (media.elv.com, Datei 107174_k50_data.pdf)
