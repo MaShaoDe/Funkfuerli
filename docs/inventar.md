@@ -51,7 +51,8 @@ Einstufung: A = Basis, B = Reserve oder Prototyp, C = Test, D = nicht verwendbar
 | Nr | Bezeichnung | Stück | Einstufung | Bemerkung |
 |---|---|---|---|---|
 | 28 | PAM8403-Modul HW-012 mit Lautstärkepoti | 20 | A | Prototyp und Kurssatz |
-| 29 | Lautsprecher mit Gehäuse und 4 Befestigungsohren | 2 | A | Ohm, Watt und Masse noch klären |
+| 29 | Lautsprecher mit Gehäuse und 4 Befestigungsohren | 2 | B | Variante mit mehr Bass, Ohm, Watt und Masse noch klären |
+| 30 | Visaton K 50 (Art. 2901), 8 Ohm, 2 W, 50 x 17 mm | mindestens 1 | A | Standard-Lautsprecher, kommt aus einem Bausatz, Stückzahl prüfen |
 
 ## Noch zu beschaffen
 * Si4732-Modul oder Chip (Variante im Datenblatt prüfen)
