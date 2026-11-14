@@ -50,6 +50,7 @@ Beim Prototyp bewusst beide Akku-Varianten (LiPo und 18650) aufbauen und verglei
 | 9 | LDO 3.3 V, THT | 1 | 10 | THT | nein | Vorschlag MCP1700 (TO-92, 250 mA), im Datenblatt prüfen. Reicht für den Si4732, nicht für den ESP32 (siehe Konzept Abschnitt 6) |
 | 10 | Pufferkondensator (Elko) | 1 | 10 | THT | nein | Wert beim Prototyp festlegen |
 | 11 | Ferrit-Drosselperle in der Versorgung | 1 | 10 | THT | nein | Typ offen |
+| 11a | Schottky-Diode 1N5819 (1 A, DO-41) als Verpolschutz | 1 | 10 | THT | nein | Entschieden 2026-11-15. In der Lastleitung, nicht im Ladepfad. Preis offen |
 | 12 | Spannungsteiler (Widerstände) für Akku-ADC und USB-Erkennung | 2 Sätze | 20 | THT | nein | Werte nach Pinplan |
 
 ## 3. Audio
@@ -117,7 +118,7 @@ Diese Positionen widersprechen "nur Nicht-SMD löten":
 
 1. **Si4732:** Der Chip ist meines Wissens nur SMD. Lösung: Modul auf Stiftleisten (Abschnitt 1).
 2. **Schutz-IC für den Akku:** Schutz-ICs mit Doppel-MOSFET gibt es meist nur als SMD. Lösung: TP4056-Modul mit Schutz und geschützte Zellen. Das Konzept sieht den Schutz noch "auf der Platine" vor. Das ist zu ändern, wenn THT gelten soll.
-3. **Verpolschutz mit P-FET:** Leistungs-FETs im Durchsteckgehäuse sind selten Logic-Level. Alternativen: Schottky-Diode (kostet etwa 0.3 V) oder ein mechanisch kodierter Halter und JST. Entscheidung offen.
+3. **Verpolschutz:** Entschieden 2026-11-15: Schottky-Diode im Durchsteckgehäuse (1N5819), weil P-FETs im Durchsteckgehäuse selten Logic-Level sind. Die Diode verliert etwa 0.3 V (messen). Folge: Bei Zellspannungen unter etwa 3.6 bis 3.8 V regelt ein 3.3-V-LDO nicht mehr sauber, und ein Teil der Akkukapazität bleibt ungenutzt. Beim Prototyp die Entladekurve messen. Ein LDO mit kleiner Dropout-Spannung hilft. Zusätzlich bleiben die JST-Stecker und die Halter mechanisch gegen Verpolung kodiert.
 4. **ESD-Schutz am Antenneneingang:** THT-Lösung offen.
 5. **Einspeisung des ESP32:** Ein 250-mA-LDO reicht nicht für WLAN-Spitzen. Entscheidung 3.3 V direkt oder 5 V steht noch aus (Konzept Abschnitt 6).
 
