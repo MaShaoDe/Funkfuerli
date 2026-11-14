@@ -8,7 +8,7 @@
 
 **Stand: Konzept.** Es gibt noch keine Hardware und keine Firmware. Diese Seite und [docs/konzept.md](docs/konzept.md) sammeln alles, was bisher entschieden ist.
 
-Kurz und ohne Technik: [docs/projektbeschreibung.md](docs/projektbeschreibung.md).
+Kurz und ohne Technik: [docs/projektbeschreibung.md](docs/projektbeschreibung.md). Was das Gerät können muss: [docs/anforderungen.md](docs/anforderungen.md).
 
 ## Was ist das?
 
