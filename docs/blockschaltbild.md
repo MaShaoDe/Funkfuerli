@@ -16,7 +16,7 @@ flowchart LR
     USB["USB-C"]
     LAD["Lader TP4056 mit Schutz"]
     AKKU["Akku 1 Zelle 3.0 bis 4.2 V"]
-    VP["Verpolschutz und Schutz-IC"]
+    VP["Schottky-Diode Verpolschutz"]
     SW["Hauptschalter"]
     FIL["Ferrit und Kondensator"]
     LDO["LDO 3.3 V"]

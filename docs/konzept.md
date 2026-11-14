@@ -83,7 +83,7 @@ Die Akkufrage bleibt offen. Die Varianten liegen vor und werden im Prototyp verg
 * Auf der Platine sind Lötpads für den Halter und ein JST-Anschluss für den LiPo vorgesehen, je nach Variante bestückt.
 * Der Halter ist direkt auf die Platine gelötet, wird aber zusätzlich vom Gehäuse gehalten. Die Zelle wird mit Klettband oder wiederlösbarem Kabelbinder durch die Kerbe im Halter gesichert, dazu kommt die Abdeckung im Gehäuse.
 * Akku in eigener Kammer mit Trennwand (Abschnitt 10).
-* Schutz: ungeschützte Zellen bekommen eine Schutzschaltung auf der Platine (Schutz-IC mit Doppel-MOSFET). Für den LiPo nur Zellen mit Schutzschaltung beschaffen. Verpolschutz (P-FET) am Akkueingang, Pufferkondensator gegen kurze Kontaktunterbrüche.
+* Schutz: ungeschützte Zellen bekommen eine Schutzschaltung auf der Platine (Schutz-IC mit Doppel-MOSFET). Für den LiPo nur Zellen mit Schutzschaltung beschaffen. Verpolschutz mit Schottky-Diode (THT, z.B. 1N5819) in der Lastleitung nach dem Akku, nicht im Ladepfad (Entscheid 2026-11-15; die Diode verliert etwa 0.3 V, messen, siehe Abschnitt Strom in der Stückliste), Pufferkondensator gegen kurze Kontaktunterbrüche.
 * Laden über USB-C mit linearem Ladechip (TP4056-Typ mit Schutz, im Prototyp Micro-USB-Modul). Laden und Hören nicht gleichzeitig: Die Last wird beim Anstecken von USB getrennt.
 * Schaltladegeräte (z.B. I2C-Lader mit Induktivität) gehören nicht ins Gerät.
 * Versorgung: Akku, Ferrit und Kondensator, dann LDO 3.3 V für den Si4732. Für das ESP32-Modul zwei Wege: 3.3 V direkt auf den 3V3-Pin (Regler des Moduls umgehen, Diode oder Jumper gegen Rückspeisung über USB) oder 5 V. Empfehlung ist 3.3 V ohne Schaltregler, Entscheidung nach Prototyp.
