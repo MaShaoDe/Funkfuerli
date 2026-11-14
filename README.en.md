@@ -8,7 +8,7 @@
 
 * **What:** a workshop kit for kids and teens, soldered in 2 to 3 hours. Receives FM, MW and SW.
 * **Receiver:** Silicon Labs Si4732 DSP chip. Not an SDR. Long wave is hidden in the firmware.
-* **Brain:** a small ESP32 module (Wemos S3 or C3 Mini) plugged into a carrier board.
+* **Brain:** an ESP32-S3-DevKitC-1 (N16R8) plugged into a carrier board.
 * **Tuning:** rotary encoder with push button and a small display.
 * **Sound:** built in speaker, 3.5 mm jack (headphones or line out), optional Bluetooth speaker.
 * **Antennas:** telescopic antenna, ferrite rod for MW, BNC socket for a wire antenna.
