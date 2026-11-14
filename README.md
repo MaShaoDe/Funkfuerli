@@ -19,7 +19,7 @@ Ein Bausatz für Workshops mit Kindern, Jugendlichen und allen, die ein Radio wo
 * **Abstimmung:** Drehencoder mit Taster und ein kleines Display. Kein Drehkondensator.
 * **Ton:** eingebauter Lautsprecher, 3.5-mm-Buchse für Kopfhörer oder Line-Out, optional Bluetooth zu einem Lautsprecher.
 * **Antennen:** Teleskopantenne, Ferritstab für MW, BNC-Buchse für eine Drahtantenne.
-* **Strom:** geschützter 18650-Akku oder flacher LiPo mit 2000 mAh, Laden über USB-C mit linearem Ladechip. Solar nur als getrenntes, externes Ladegerät.
+* **Strom:** geschützter 18650-Akku oder flacher LiPo mit 3000 mAh, Laden über USB-C mit linearem Ladechip. Solar nur als getrenntes, externes Ladegerät.
 * **Gehäuse:** 3D-gedruckt, gemacht für jeden FDM-Drucker im Club oder FabLab.
 * **Robust:** Abnahmekriterium ist ein Falltest aus 1 m auf Holz oder Fliesen. Weich gelagert, das Gehäuse trägt die Lasten.
 
@@ -37,7 +37,8 @@ Solar-Laderegler und Schaltregler stören MW und KW. Das Design hält Laden, Str
 
 - [x] Konzept und Lizenzprüfung der Software-Basis
 - [ ] Genaues ESP32-Modul bestätigen (Footprint, Pinbelegung, Flash/PSRAM)
-- [ ] Blockschaltbild und Stückliste
+- [x] Pinplan und Blockschaltbild (Entwurf: [docs/pinplan.md](docs/pinplan.md), [docs/blockschaltbild.md](docs/blockschaltbild.md))
+- [ ] Stückliste
 - [ ] Trägerplatine in KiCad 9
 - [ ] Firmware: Fork von [esp32-si4732/ats-mini](https://github.com/esp32-si4732/ats-mini) (MIT), angepasst an das neue Board
 - [ ] Gehäuse in OpenSCAD oder FreeCAD, Testdruck im Club oder FabLab
