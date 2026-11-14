@@ -13,7 +13,7 @@
 Ein Bausatz für Workshops mit Kindern, Jugendlichen und allen, die ein Radio wollen, das auch dann noch geht, wenn sonst nichts mehr geht. In 2 bis 3 Stunden zusammengelötet, mit einem Drehknopf abgestimmt, empfängt es UKW, Mittelwelle und Kurzwelle.
 
 * **Empfänger:** DSP-Chip Si4732 von Silicon Labs (UKW, AM/MW, KW, LW, RDS). Langwelle wird in der Firmware ausgeblendet.
-* **Steuerung:** ein kleines ESP32-Modul (Wemos S3 oder C3 Mini), aufgesteckt auf eine Trägerplatine. Das Modul bleibt wiederverwendbar.
+* **Steuerung:** ein ESP32-S3-DevKitC-1 (N16R8), aufgesteckt auf eine Trägerplatine. Das Modul bleibt wiederverwendbar.
 * **Abstimmung:** Drehencoder mit Taster und ein kleines Display. Kein Drehkondensator.
 * **Ton:** eingebauter Lautsprecher, 3.5-mm-Buchse für Kopfhörer oder Line-Out, optional Bluetooth zu einem Lautsprecher.
 * **Antennen:** Teleskopantenne, Ferritstab für MW, BNC-Buchse für eine Drahtantenne.
