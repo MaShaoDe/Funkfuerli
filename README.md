@@ -8,6 +8,8 @@
 
 **Stand: Konzept.** Es gibt noch keine Hardware und keine Firmware. Diese Seite und [docs/konzept.md](docs/konzept.md) sammeln alles, was bisher entschieden ist.
 
+Kurz und ohne Technik: [docs/projektbeschreibung.md](docs/projektbeschreibung.md).
+
 ## Was ist das?
 
 Ein Bausatz für Workshops mit Kindern, Jugendlichen und allen, die ein Radio wollen, das auch dann noch geht, wenn sonst nichts mehr geht. In 2 bis 3 Stunden zusammengelötet, mit einem Drehknopf abgestimmt, empfängt es UKW, Mittelwelle und Kurzwelle.
