@@ -1,14 +1,36 @@
 # Funkfüürli: Stückliste (Stand 2026-11-15, Entwurf)
 
-Stückliste für einen Kurssatz. Grundlage sind das [Konzept](konzept.md), das [Inventar](inventar.md), die [Anforderungen](anforderungen.md) und der [Pinplan](pinplan.md).
+Stückliste für den Prototyp und den späteren Kurssatz. Grundlage sind das [Konzept](konzept.md), das [Inventar](inventar.md), die [Anforderungen](anforderungen.md) und der [Pinplan](pinplan.md).
 
-**Rechenbasis:** 10 Sätze (bis 8 Teilnehmer, 1 Prüfstück, 1 Reserve).
+**Reihenfolge:** Zuerst entsteht **1 Prototyp**. Der Kurssatz (10 Sätze) kommt erst danach. Der Prototyp dient zum Messen (Laufzeit, Störungen auf MW und KW, Falltest, Akku-Vergleich) und zum Entscheiden der offenen Punkte. Das Kostenziel von 30 bis 60 CHF gilt für den späteren Bausatz, nicht für den Prototyp.
+**Rechenbasis:** Die Spalte "Pro Satz" gilt für den Prototyp. Die Spalte "10 Sätze" ist die Vorschau für den Kurssatz (8 Teilnehmer, 1 Prüfstück, 1 Reserve).
 **Preise:** Nur Stichproben, mit Quelle. Wo "offen" steht, ist der Preis nicht geprüft. Eine Gesamtsumme ist deshalb noch nicht sinnvoll.
 **Form:** Modul = fertig bestückt, wird gesteckt oder angeschlossen. THT = durchsteckmontiert, wird von den Teilnehmern gelötet.
 
+## Einkaufsliste Prototyp (1 Stück)
+
+Bestand ist im [Inventar](inventar.md) geführt. Zu besorgen ist, was dort fehlt:
+
+| Was | Menge | Bemerkung |
+|---|---|---|
+| Si4732-Modul | 1 | Bestellt (Mikroe AM/FM 2 Click, 29 USD). Eigenes Mini-Modul später |
+| Drehencoder EC11 mit Taster, Drehknopf | 1 | |
+| Klinkenbuchse 3.5 mm mit Schaltkontakt | 1 | |
+| BNC-Buchse, Teleskopantenne, Ferritstab MW | je 1 | Ferritstab-Typ klären |
+| Hauptschalter | 1 | |
+| LDO 3.3 V (THT), Pufferelko, Ferrit-Drosselperle | je 1 | LDO-Typ im Datenblatt prüfen |
+| Widerstände, Kondensatoren, Transistor (Backlight, Verstärker-Schalter), Dioden | Sortiment | Werte aus dem Schaltplan |
+| JST-Stecker für LiPo, Stiftleisten, Buchsenleisten 2 x 22, Jumper | Sortiment | Gedrehte Kontakte für den ESP32 |
+| Aufbau: Platine (Mindestmenge 5) oder Lochraster | 1 | Entscheidung offen |
+| Gehäuse (Testdruck PETG), TPU, M3-Schrauben, Schaumstoff | 1 Satz | Nach dem CAD |
+| Kleber für den Test (Heissleim, neutrales Silikon, Epoxid) | kleine Mengen | Noch nicht entschieden |
+
+Vorhanden und ausreichend für den Prototyp: ESP32-S3-DevKitC-1, Display 2.0" ST7789V, PAM8403 HW-012, TP4056-Lader, LiPo 103665, NCR18650B mit Halter, 14500, Visaton K 50.
+Beim Prototyp bewusst beide Akku-Varianten (LiPo und 18650) aufbauen und vergleichen.
+
 ## 1. Module
 
-| Nr | Bauteil | Pro Satz | 10 Sätze | Form | Vorhanden (Inventar) | Bemerkung und Preis |
+| Nr | Bauteil | Pro Satz | 10 Sätze (später) | Form | Vorhanden (Inventar) | Bemerkung und Preis |
 |---|---|---|---|---|---|---|
 | 1 | ESP32-S3-DevKitC-1 N16R8 | 1 | 10 | Modul, gesteckt | Stückzahl offen (Nr 1) | Waveshare-Variante CHF 18.90 (bastelgarage.ch), Clones etwa 6 bis 7 EUR plus Versand (eBay) |
 | 2 | Display 2.0" TFT, ST7789V, 240x320 | 1 | 10 | Modul, Stiftleiste | 4 (Nr 15) | Fehlmenge 6, Preis offen |
@@ -18,7 +40,7 @@ Stückliste für einen Kurssatz. Grundlage sind das [Konzept](konzept.md), das [
 
 ## 2. Strom
 
-| Nr | Bauteil | Pro Satz | 10 Sätze | Form | Vorhanden | Bemerkung |
+| Nr | Bauteil | Pro Satz | 10 Sätze (später) | Form | Vorhanden | Bemerkung |
 |---|---|---|---|---|---|---|
 | 6 | Akku, Variante offen: LiPo 103665 mit Schutz | 1 | 10 | JST | 10 (Nr 21) | Nur mit Schutzplatine |
 | 6a | Alternative: NCR18650B plus Halter | 1 | | Halter gelötet | Stückzahl offen (Nr 22, 23) | Schutz nötig |
@@ -32,7 +54,7 @@ Stückliste für einen Kurssatz. Grundlage sind das [Konzept](konzept.md), das [
 
 ## 3. Audio
 
-| Nr | Bauteil | Pro Satz | 10 Sätze | Form | Vorhanden | Bemerkung und Preis |
+| Nr | Bauteil | Pro Satz | 10 Sätze (später) | Form | Vorhanden | Bemerkung und Preis |
 |---|---|---|---|---|---|---|
 | 13 | Lautsprecher Visaton K 50, 8 Ohm (Art. 2901) | 1 | 10 | Kabel oder Lötfahne | mindestens 1 (Nr 30) | 4.35 EUR (eBay, WITTKO, inkl. MwSt.), 4.95 EUR (soundimports.eu). alltron.ch führt ihn ebenfalls (Preis nicht geprüft) |
 | 14 | Klinkenbuchse 3.5 mm, stereo, mit Schaltkontakt | 1 | 10 | THT | nein | Preis offen |
@@ -43,7 +65,7 @@ Stückliste für einen Kurssatz. Grundlage sind das [Konzept](konzept.md), das [
 
 ## 4. Antennen
 
-| Nr | Bauteil | Pro Satz | 10 Sätze | Form | Vorhanden | Bemerkung |
+| Nr | Bauteil | Pro Satz | 10 Sätze (später) | Form | Vorhanden | Bemerkung |
 |---|---|---|---|---|---|---|
 | 19 | Teleskopantenne | 1 | 10 | Gehäuse verschraubt | nein | Preis offen. Für UKW und KW |
 | 20 | BNC-Buchse, Platinenmontage | 1 | 10 | THT | nein | Preis offen. Mit Mutter durch die Gehäusewand |
@@ -52,7 +74,7 @@ Stückliste für einen Kurssatz. Grundlage sind das [Konzept](konzept.md), das [
 
 ## 5. Bedienung
 
-| Nr | Bauteil | Pro Satz | 10 Sätze | Form | Vorhanden | Bemerkung und Preis |
+| Nr | Bauteil | Pro Satz | 10 Sätze (später) | Form | Vorhanden | Bemerkung und Preis |
 |---|---|---|---|---|---|---|
 | 23 | Drehencoder EC11 mit Taster | 1 | 10 | THT | nein | Alps EC11 4.86 EUR (Mouser, Einzelpreis, Status NRND), Clones ab etwa 1.80 EUR (eBay) |
 | 24 | Drehknopf | 1 | 10 | | nein | Passend zur Achse (6 mm, D-Achse, laut Typ prüfen) |
@@ -62,7 +84,7 @@ Stückliste für einen Kurssatz. Grundlage sind das [Konzept](konzept.md), das [
 
 ## 6. Verbinder
 
-| Nr | Bauteil | Pro Satz | 10 Sätze | Form | Vorhanden | Bemerkung |
+| Nr | Bauteil | Pro Satz | 10 Sätze (später) | Form | Vorhanden | Bemerkung |
 |---|---|---|---|---|---|---|
 | 28 | Buchsenleisten 2 x 22 mit gedrehten Kontakten (für den ESP32) | 2 | 20 | THT | nein | Gedrehte Kontakte halten besser (Konzept Abschnitt 11) |
 | 29 | Buchsen- oder Stiftleisten für Display, Si4732 und Verstärker | nach Layout | | THT | nein | Nach dem Layout zählen |
@@ -70,7 +92,7 @@ Stückliste für einen Kurssatz. Grundlage sind das [Konzept](konzept.md), das [
 
 ## 7. Platine und Gehäuse
 
-| Nr | Bauteil | Pro Satz | 10 Sätze | Bemerkung |
+| Nr | Bauteil | Pro Satz | 10 Sätze (später) | Bemerkung |
 |---|---|---|---|---|
 | 31 | Trägerplatine, KiCad 9, 2 Lagen | 1 | 10 | JLCPCB oder PCBWay. Mindestmenge meist 5, Preis offen |
 | 32 | Gehäuse, 3D-Druck PETG | 1 | 10 | Vor dem Kurs gedruckt, 1 bis 2 im Kurs. Druckzeit höchstens 2 bis 3 Stunden |
@@ -101,10 +123,11 @@ Diese Positionen widersprechen "nur Nicht-SMD löten":
 
 ## Offen
 
-1. Preise für Abschnitt 2 bis 7 holen, besonders Platine, Display und Si4732-Alternative.
-2. Eigenes Si4732-Mini-Modul: Preis des Chips und der Fertigung klären.
-3. Fehlmengen decken: Display (6), Lautsprecher (mindestens 9), ESP32-Module (Stückzahl prüfen).
-4. Stückliste mit dem Layout abgleichen, sobald die Platine steht.
+1. Prototyp: Aufbau auf Platine oder Lochraster festlegen.
+2. Preise für Abschnitt 2 bis 7 holen, besonders Platine, Display und die Si4732-Alternative (für den Kurssatz).
+3. Eigenes Si4732-Mini-Modul: Preis des Chips und der Fertigung klären (für den Kurssatz).
+4. Fehlmengen für den Kurssatz (erst nach dem Prototyp): Displays 6, Lautsprecher mindestens 9, ESP32-Module je nach Bestand.
+5. Stückliste mit dem Layout abgleichen, sobald die Platine steht.
 
 *Quellen der Preise (Stand 2026-11-15, Stichproben): Digikey (Mikroe), bastelgarage.ch, eBay, Mouser, soundimports.eu.*
 
