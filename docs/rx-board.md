@@ -100,7 +100,7 @@ Qualität und Haltbarkeit haben Vorrang vor Grösse. Wenn eine enge Bestückung 
 4. Schutz der Antenneneingänge gegen statische Aufladung (SMD, auf dem Board).
 5. Verfügbarkeit von Chip, Quarz und Kondensatoren beim Hersteller, Angebot einholen.
 6. Lizenzdatei der PU2CLR-Bibliothek einsehen, Autor in der Doku nennen.
-8. Eigenes Repo für das RX-Board (Entscheid 2026-11-15, Namen und Anlegen offen, siehe GitHub-Regeln). Bis dahin liegt die Doku hier.
+7. Eigenes Repo für das RX-Board (Entscheid 2026-11-15, Namen und Anlegen offen, siehe GitHub-Regeln). Bis dahin liegt die Doku hier.
 
 ## 8. Erklärt für Laien
 
