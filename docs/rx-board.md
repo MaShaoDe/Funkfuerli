@@ -64,7 +64,7 @@ Qualität und Haltbarkeit haben Vorrang vor Grösse. Wenn eine enge Bestückung 
 * Antennenanschlüsse (FM/SW, AM/LW), "RX", Version (Rev A) und Jahr, Feld für die Seriennummer.
 * Beschriftete Testpunkte für 3.3 V, GND, SDA, SCL, Audio links und rechts, Reset.
 * `Copyright 2026 FerienBSD aka Marcel Sauder`, Link `github.com/MaShaoDe/Funkfuerli` und `CERN-OHL-P-2.0`.
-* Rufzeichen auf dem Board: Entscheidung offen (siehe Abschnitt 7).
+* Kein Rufzeichen auf dem Board, nur Copyright (Entscheid 2026-11-15).
 * Mindestgrösse von Schrift und Linien beim Hersteller vor der Bestellung prüfen.
 
 **Elektrik und Störungen**
@@ -100,8 +100,7 @@ Qualität und Haltbarkeit haben Vorrang vor Grösse. Wenn eine enge Bestückung 
 4. Schutz der Antenneneingänge gegen statische Aufladung (SMD, auf dem Board).
 5. Verfügbarkeit von Chip, Quarz und Kondensatoren beim Hersteller, Angebot einholen.
 6. Lizenzdatei der PU2CLR-Bibliothek einsehen, Autor in der Doku nennen.
-7. Ordner im Repo: `hardware/rx-board/`. Eigenes Repo später, wenn nötig.
-8. Rufzeichen auf dem Board: ja oder nein. Das Konzept sagt bisher "kein Rufzeichen und keine privaten Angaben im Gehäuse". Ohne ausdrückliche Freigabe steht keines in den Dateien.
+8. Eigenes Repo für das RX-Board (Entscheid 2026-11-15, Namen und Anlegen offen, siehe GitHub-Regeln). Bis dahin liegt die Doku hier.
 
 ## 8. Erklärt für Laien
 
