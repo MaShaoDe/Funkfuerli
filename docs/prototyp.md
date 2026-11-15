@@ -12,7 +12,7 @@ Entscheid 2026-11-15: Breadboard für den Labortest, danach Lochraster, die Plat
 
 ## Stufe 1: Breadboard (Labortest)
 
-Zweck: Funktion, Firmware und Pinplan prüfen, bevor etwas gelötet wird. Alle Module sind vorhanden oder bestellt, Kabel und Breadboards sind da.
+Zweck: Funktion, Firmware und Pinplan prüfen, bevor etwas gelötet wird. Alle Module sind vorhanden, ausser dem Si4732-Modul (noch zu bestellen). Kabel und Breadboards sind da.
 
 Reihenfolge, jeweils erst weiter, wenn der Schritt läuft:
 

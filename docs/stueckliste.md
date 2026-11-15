@@ -13,7 +13,7 @@ Bestand ist im [Inventar](inventar.md) geführt. Zu besorgen ist, was dort fehlt
 
 | Was | Menge | Bemerkung |
 |---|---|---|
-| Si4732-Modul | 1 | Bestellt (Mikroe AM/FM 2 Click, 29 USD). Eigenes Mini-Modul später |
+| Si4732-Modul | 1 | Noch nicht bestellt. Vorschlag: Mikroe AM/FM 2 Click (MIKROE-5793, 29 USD). Eigenes Mini-Modul später |
 | Drehencoder EC11 mit Taster, Drehknopf | 1 | |
 | Klinkenbuchse 3.5 mm mit Schaltkontakt | 1 | |
 | BNC-Buchse, Teleskopantenne, Ferritstab MW | je 1 | Ferritstab-Typ klären |
@@ -34,7 +34,7 @@ Beim Prototyp bewusst beide Akku-Varianten (LiPo und 18650) aufbauen und verglei
 |---|---|---|---|---|---|---|
 | 1 | ESP32-S3-DevKitC-1 N16R8 | 1 | 10 | Modul, gesteckt | Stückzahl offen (Nr 1) | Waveshare-Variante CHF 18.90 (bastelgarage.ch), Clones etwa 6 bis 7 EUR plus Versand (eBay) |
 | 2 | Display 2.0" TFT, ST7789V, 240x320 | 1 | 10 | Modul, Stiftleiste | 4 (Nr 15) | Fehlmenge 6, Preis offen |
-| 3 | Si4732-Empfängermodul | 1 | 10 | Modul, gesteckt | bestellt, noch nicht da | Siehe Abschnitt "Kostentreiber" |
+| 3 | Si4732-Empfängermodul | 1 | 10 | Modul, gesteckt | nein, noch nicht bestellt | Siehe Abschnitt "Kostentreiber" |
 | 4 | Verstärker PAM8403, HW-012 | 1 | 10 | Modul | 20 (Nr 28) | Reicht |
 | 5 | Lader TP4056 mit Schutz | 1 | 10 | Modul | Stückzahl offen (Nr 25) | Micro-USB im Prototyp, später USB-C. Schutz gegen Tiefentladung nur mit dem Schutzmodul (siehe Abschnitt "THT-Konflikte") |
 
