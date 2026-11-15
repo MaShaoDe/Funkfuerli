@@ -40,12 +40,42 @@ Welche Antenne an welchen Eingang gehört: Laut Blockschaltbild des Datenblatts 
 
 ## 4. Anforderungen
 
-* Wenig Strom, gute Empfangsqualität, einfache Handhabung, robust (aus [anforderungen.md](anforderungen.md)).
-* Stiftleisten im Raster 2.54 mm, damit das Board steckbar und tauschbar ist.
-* Kleiner als der Mikroe-Click (57.15 x 25.4 mm). Genaue Masse nach dem Layout.
-* Störarm: kurze Leitungen zu den Antenneneingängen, durchgehende Massefläche, Quarz nahe am Chip, Abstand zu ESP32, Display und Verstärker.
-* Kein Schaltregler auf dem Board. Versorgung nur über Kondensatoren (Entkopplung).
-* Aufdruck: "RX", Copyright und Repo-Link nach den GitHub-Regeln. Kein Rufzeichen.
+Qualität und Haltbarkeit haben Vorrang vor Grösse. Wenn eine enge Bestückung nicht sicher ist, wird grosszügiger gebaut.
+
+**Grundlagen** (aus [anforderungen.md](anforderungen.md)): wenig Strom, gute Empfangsqualität, einfache Handhabung, robust, günstig.
+
+**Mechanik und Robustheit**
+* Passive Bauteile in Grösse 0805, keine kleineren. Grosszügige Abstände zwischen den Teilen, mehr als das Minimum des Herstellers. Der Chip im SOIC-16-Gehäuse bleibt, das ist gross genug.
+* Stiftleisten im Raster 2.54 mm, steckbar und tauschbar.
+* 2 Befestigungslöcher. Das Board wird im Gehäuse gehalten, die Stiftleiste trägt nur die Elektrik (Konzept Abschnitt 11, Falltest aus 1 m).
+* Kleiner als der Mikroe-Click (57.15 x 25.4 mm), genaue Masse nach dem Layout.
+
+**Schutz vor Fehlern**
+* Pin 1 deutlich markiert, die Stiftleiste so gelegt, dass das Board nur in einer Richtung passt (Kodierung).
+* Der Chip arbeitet laut Datenblatt mit 2.7 bis 3.6 V. Die Versorgung kommt nur aus dem LDO, nie direkt vom Akku oder aus 5 V. Absolute Maximalwerte im Datenblatt nachsehen.
+* Schutz der Antenneneingänge gegen statische Aufladung (SMD, auf dem Board).
+
+**Platine und Lack**
+* 1.6 mm FR4, 2 Lagen, Oberfläche ENIG (flach, korrosionsfest, gut für feine Lötpads).
+* Lötstopplack matt, dunkel. Weisser Siebdruck darauf. Zusätzlicher Schutzlack ist optional und kommt erst nach dem Test, weil er Antenneneingänge und Quarz leicht verstimmen kann. Stiftleisten und Pads bleiben frei.
+
+**Beschriftung** (alles auf dem Board beschriftet)
+* Bauteilnamen (R1, C1, U1, X1) und Pin-Namen an den Stiftleisten.
+* Antennenanschlüsse (FM/SW, AM/LW), "RX", Version (Rev A) und Jahr, Feld für die Seriennummer.
+* Beschriftete Testpunkte für 3.3 V, GND, SDA, SCL, Audio links und rechts, Reset.
+* `Copyright 2026 FerienBSD aka Marcel Sauder`, Link `github.com/MaShaoDe/Funkfuerli` und `CERN-OHL-P-2.0`.
+* Kein Rufzeichen auf dem Board, nur Copyright (Entscheid 2026-11-15).
+* Mindestgrösse von Schrift und Linien beim Hersteller vor der Bestellung prüfen.
+
+**Elektrik und Störungen**
+* Kein Schaltregler auf dem Board, Versorgung nur über Kondensatoren (Entkopplung).
+* Kurze Leitungen zu den Antenneneingängen, durchgehende Massefläche, Quarz nahe am Chip, Abstand zu ESP32, Display und Verstärker.
+
+**Qualitätssicherung**
+* Jedes Board wird vor dem Kurs geprüft: Ein kleines Testprogramm liest den Chip aus und stimmt einen Sender ab.
+* Mehr Boards bestellen, als der Kurs braucht (Mindestmenge meist 5), als Reserve.
+* Zwei Revisionen einplanen: Rev A zum Testen, Rev B mit den Korrekturen für den Kurs.
+* DRC in KiCad und die Herstellerprüfung der Bestückungsdaten (Drehung der Bauteile) vor der Bestellung.
 
 ## 5. Bestückung
 
@@ -70,7 +100,7 @@ Welche Antenne an welchen Eingang gehört: Laut Blockschaltbild des Datenblatts 
 4. Schutz der Antenneneingänge gegen statische Aufladung (SMD, auf dem Board).
 5. Verfügbarkeit von Chip, Quarz und Kondensatoren beim Hersteller, Angebot einholen.
 6. Lizenzdatei der PU2CLR-Bibliothek einsehen, Autor in der Doku nennen.
-7. Ordner im Repo: `hardware/rx-board/`. Eigenes Repo später, wenn nötig.
+7. Eigenes Repo für das RX-Board (Entscheid 2026-11-15, Namen und Anlegen offen, siehe GitHub-Regeln). Bis dahin liegt die Doku hier.
 
 ## 8. Erklärt für Laien
 
