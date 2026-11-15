@@ -85,8 +85,8 @@ Quellen: Datenblatt-Kurzfassung Silicon Labs (2013) und Skyworks (2021), beide g
 |---|---|---|---|
 | 1 | LOUT/DFS | Audio links | Ausgang, 470 nF Koppelkondensator |
 | 2 | GPO3/DCLK | General Purpose Out 3 / Takt | Quarz (OSC-OUT), 22 pF nach GND |
-| 3 | GPO2/INTB | General Purpose Out 2 / Interrupt | optional zur Stiftleiste |
-| 4 | GPO1 | General Purpose Out 1 | unbeschaltet |
+| 3 | GPO2/INTB | General Purpose Out 2 / Interrupt | offen lassen oder optional zur Stiftleiste (muss beim Reset low sein) |
+| 4 | GPO1 | General Purpose Out 1 | unbeschaltet (interner Pull-up, muss beim Reset high sein) |
 | 5 | NC | nicht belegt | unbeschaltet |
 | 6 | FMI | FM/SW Antenneneingang | Teleskop, ESD-Schutz |
 | 7 | RFGND | HF-Masse | an GND |
@@ -109,11 +109,13 @@ Das Layout wird nach Schaltplan und Datenblatt gezeichnet. Die Werte unten sind 
 * Quarz 32.768 kHz zwischen Pin 2 und Pin 13, je 22 pF nach GND.
 * I2C und Reset: Pull-ups 4.7 kΩ nach 3.3 V.
 * Versorgung: 100 nF und 1 µF direkt an Pin 14.
-* Adresse: SENB über 20 kΩ fest auf GND oder 3.3 V. Beim Mikroe-Click per Jumper 0x11 oder 0x63 wählbar. Wir legen sie fest und prüfen im Test, welche Adresse antwortet (Programming Guide AN332 gegenlesen).
+* Adresse (AN332, Abschnitt 6.1): SENB = GND ergibt 7-Bit-Adresse 0x11 (Schreiben 0x22), SENB = 3.3 V ergibt 0x63 (Schreiben 0xC6). Wir legen SENB fest auf GND (Adresse 0x11). Beim Mikroe-Click ist es per Jumper wählbar.
 * Audio: je 470 nF in Reihe pro Kanal, dazu 20 kΩ Widerstände.
 * FM-Pfad: 1 nF, 100 pF, 270 nH, 100 nF und Schutzdioden BAV99.
 * AM-Pfad: 470 nF in Reihe, Ferritstab an Pin 8, Dioden BAV99 als Schutz.
 * Der Kopfhörerverstärker (LM4910) des Mikroe-Clicks entfällt. Das Tonsignal geht auf die Stiftleiste.
+* Bus-Modus (AN332, Abschnitt 6): Der Chip wählt den Modus beim Reset über GPO1 und GPO2. Intern ziehen 1 MΩ Widerstände GPO1 hoch und GPO2 tief, das ergibt I2C (2-Wire). Darum bleiben GPO1 und GPO2 auf dem Board unbeschaltet.
+* Start (AN332): Quarzbetrieb braucht beim Befehl POWER_UP XOSCEN = 1 und OPMODE = 0x05 (analoger Ausgang). Danach mindestens 500 ms warten, bis der erste Abstimmbefehl kommt. Zum Chip-Test gibt POWER_UP mit FUNC = 15 die Teilenummer zurück.
 * Die genaue Verschaltung (welcher Wert in welcher Leitung) wird aus dem Schaltplan gezeichnet, nicht aus dieser Liste. Die Ferritantenne (Induktivität) ist noch festzulegen.
 
 ## 5. Bestückung
@@ -133,7 +135,7 @@ Das Layout wird nach Schaltplan und Datenblatt gezeichnet. Die Werte unten sind 
 
 ## 7. Offene Punkte
 
-1. Vollständiges Datenblatt des Si4732-A10 und AN332 besorgen (Marcel sucht): Applikationsschaltung mit Werten, Maximalwerte, Layout-Hinweise, I2C-Adresse. Pinbelegung ist geprüft (Abschnitt 4a), die Werte in 4b sind Startwerte.
+1. Vollständiges Datenblatt des Si4732-A10: Es gibt öffentlich nur das 3-seitige Data Short. AN332 (Programming Guide) liegt vor und liefert Adresse, Bus-Modus und Start. Es fehlen weiter Applikationsschaltung mit Werten, Maximalwerte und Layout-Hinweise. Pinbelegung ist geprüft (Abschnitt 4a), die Werte in 4b sind Startwerte aus dem Mikroe-Schaltplan.
 2. Erledigt: Mikroe-Schaltplan gegengelesen (Abschnitt 4a und 4b).
 3. Antennenanschluss des Ferritstabs: Anzapfung und Induktivität nach Datenblatt.
 4. Schutz der Antenneneingänge gegen statische Aufladung (SMD, auf dem Board).
