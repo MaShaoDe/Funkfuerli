@@ -1,6 +1,6 @@
 # Funkfüürli: Blockschaltbild (Stand 2026-11-15, Entwurf)
 
-Grober Aufbau. Die Pins stehen in [pinplan.md](pinplan.md), die Gründe in [konzept.md](konzept.md). Die Anschlüsse am Si4732 (welche Antenne an welchen Eingang) sind noch zu klären und hier bewusst offen.
+Grober Aufbau. Der Empfänger ist in [rx-board.md](rx-board.md) beschrieben. Die Pins stehen in [pinplan.md](pinplan.md), die Gründe in [konzept.md](konzept.md). Die Anschlüsse am Si4732 (welche Antenne an welchen Eingang) sind noch zu klären und hier bewusst offen.
 
 ## Gesamt
 
@@ -42,7 +42,7 @@ flowchart LR
     KL -. "Schaltkontakt schaltet LS ab" .-> AMP
   end
 
-  RX["Si4732 Empfaengermodul gesteckt"]
+  RX["Empfänger RX-Board gesteckt"]
 
   TEL --> RX
   BNC --> RX
