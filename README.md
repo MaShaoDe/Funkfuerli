@@ -39,7 +39,8 @@ Solar-Laderegler und Schaltregler stören MW und KW. Das Design hält Laden, Str
 - [ ] Genaues ESP32-Modul bestätigen (Footprint, Pinbelegung, Flash/PSRAM)
 - [x] Pinplan und Blockschaltbild (Entwurf: [docs/pinplan.md](docs/pinplan.md), [docs/blockschaltbild.md](docs/blockschaltbild.md))
 - [x] Stückliste (Entwurf, Preise erst teilweise: [docs/stueckliste.md](docs/stueckliste.md))
-- [ ] Trägerplatine in KiCad 9
+- [ ] Prototyp auf Lochraster, Tests (Empfang, Störungen, Laufzeit)
+- [ ] Trägerplatine in KiCad 9 (nach bestandenem Prototyp-Test)
 - [ ] Firmware: Fork von [esp32-si4732/ats-mini](https://github.com/esp32-si4732/ats-mini) (MIT), angepasst an das neue Board
 - [ ] Gehäuse in OpenSCAD oder FreeCAD, Testdruck im Club oder FabLab
 - [ ] Prototyp, Störmessungen auf MW und KW

@@ -21,7 +21,7 @@ Bestand ist im [Inventar](inventar.md) geführt. Zu besorgen ist, was dort fehlt
 | LDO 3.3 V (THT), Pufferelko, Ferrit-Drosselperle | je 1 | LDO-Typ im Datenblatt prüfen |
 | Widerstände, Kondensatoren, Transistor (Backlight, Verstärker-Schalter), Dioden | Sortiment | Werte aus dem Schaltplan |
 | JST-Stecker für LiPo, Stiftleisten, Buchsenleisten 2 x 22, Jumper | Sortiment | Gedrehte Kontakte für den ESP32 |
-| Aufbau: Platine (Mindestmenge 5) oder Lochraster | 1 | Entscheidung offen |
+| Lochraster (Streifen- oder Punktraster, doppelseitig mit Massefläche bevorzugt) | 1 | Entschieden 2026-11-15: Prototyp auf Lochraster. Eigene Platine erst nach bestandenem Test |
 | Gehäuse (Testdruck PETG), TPU, M3-Schrauben, Schaumstoff | 1 Satz | Nach dem CAD |
 | Kleber für den Test (Heissleim, neutrales Silikon, Epoxid) | kleine Mengen | Noch nicht entschieden |
 
@@ -105,6 +105,18 @@ Beim Prototyp bewusst beide Akku-Varianten (LiPo und 18650) aufbauen und verglei
 | 38 | Kleber (Heissleim, neutral vernetzendes Silikon oder Epoxid) | | | Noch nicht entschieden |
 | 39 | Beschriftung: Symbole, evtl. Lasergravur oder Aufkleber | | | Kein Rufzeichen |
 
+## Prototyp: Tests vor der Platine
+
+Der Prototyp wird auf Lochraster gebaut (Entscheid 2026-11-15). Wenn die Tests bestanden sind, folgt die eigene Platine in KiCad. Vorschlag für die Tests:
+
+1. Empfang UKW, MW, KW mit Teleskopantenne und Drahtantenne, Vergleich mit einem bekannten Radio.
+2. Störtest nach Konzept Abschnitt 8: Modul, Verstärker und Lader einzeln zuschalten, MW und KW auf leerem Kanal messen.
+3. Laufzeit mit LiPo und mit 18650, Stromaufnahme mit und ohne Display.
+4. Bedienung: Abstimmung mit dem Encoder, Anzeige, Lautstärke.
+5. Falltest aus 1 m (nur mit Testgehäuse, nicht mit offenem Lochrasteraufbau).
+
+Grenze: Ein Lochrasteraufbau hat lange Leitungen und keine durchgehende Massefläche. Störungen und Empfang fallen dort meist schlechter aus als auf einer Platine. Ein schlechter Wert ist darum kein Beweis gegen das Konzept, ein guter Wert ist ein gutes Zeichen. Die endgültige Messung folgt auf der Platine.
+
 ## Kostentreiber
 
 * **Si4732-Modul:** Das Mikroe AM/FM 2 Click kostet 29 USD (Einzelpreis bei Digikey). Es hat zusätzlich einen Kopfhörerverstärker (LM4910) und ist 57.15 x 25.4 mm gross (Format L). Allein verbraucht es etwa die Hälfte des Kostenziels von 30 bis 60 CHF. Es taugt für den Prototyp, nicht für den Kurssatz. Fertige Si4732-Module auf eBay (17 bis 21 EUR) sind Umbaumodule für Funkgeräte (UV-K5) und passen nicht. Für den Kurssatz braucht es ein eigenes Mini-Modul oder ein günstigeres Breakout.
@@ -124,7 +136,7 @@ Diese Positionen widersprechen "nur Nicht-SMD löten":
 
 ## Offen
 
-1. Prototyp: Aufbau auf Platine oder Lochraster festlegen.
+1. Testkriterien für den Prototyp festlegen, ab wann die Platine gestartet wird (Abschnitt "Prototyp: Tests vor der Platine").
 2. Preise für Abschnitt 2 bis 7 holen, besonders Platine, Display und die Si4732-Alternative (für den Kurssatz).
 3. Eigenes Si4732-Mini-Modul: Preis des Chips und der Fertigung klären (für den Kurssatz).
 4. Fehlmengen für den Kurssatz (erst nach dem Prototyp): Displays 6, Lautsprecher mindestens 9, ESP32-Module je nach Bestand.
