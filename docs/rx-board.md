@@ -23,7 +23,7 @@ Antenne  ->  RX-Board  ->  Ton (L, R)  ->  Verstärker / Klinke
 
 ## 3. Schnittstelle zur Hauptplatine
 
-Die Belegung der Stiftleiste wird nach der Prüfung des vollständigen Datenblatts festgelegt (Abschnitt 7). Geplant sind diese Signale:
+Die Belegung der Stiftleiste wird nach dem Pinplan der Hauptplatine festgelegt (Abschnitt 7). Geplant sind diese Signale:
 
 | Signal | Richtung | Bemerkung |
 |---|---|---|
@@ -77,11 +77,50 @@ Qualität und Haltbarkeit haben Vorrang vor Grösse. Wenn eine enge Bestückung 
 * Zwei Revisionen einplanen: Rev A zum Testen, Rev B mit den Korrekturen für den Kurs.
 * DRC in KiCad und die Herstellerprüfung der Bestückungsdaten (Drehung der Bauteile) vor der Bestellung.
 
+## 4a. Si4732-A10-GS: geprüfte Pinbelegung (SOIC-16)
+
+Quellen: Datenblatt-Kurzfassung Silicon Labs (2013) und Skyworks (2021), beide gleich. Gegengelesen mit dem Mikroe-Schaltplan "AM/FM 2 Click v100". Die frühere Tabelle aus der PU2CLR-Vorlage (Gedächtnis) war falsch und ist ersetzt.
+
+| Pin | Name | Funktion | Auf dem RX-Board |
+|---|---|---|---|
+| 1 | LOUT/DFS | Audio links | Ausgang, 470 nF Koppelkondensator |
+| 2 | GPO3/DCLK | General Purpose Out 3 / Takt | Quarz (OSC-OUT), 22 pF nach GND |
+| 3 | GPO2/INTB | General Purpose Out 2 / Interrupt | optional zur Stiftleiste |
+| 4 | GPO1 | General Purpose Out 1 | unbeschaltet |
+| 5 | NC | nicht belegt | unbeschaltet |
+| 6 | FMI | FM/SW Antenneneingang | Teleskop, ESD-Schutz |
+| 7 | RFGND | HF-Masse | an GND |
+| 8 | AMI | AM/LW Antenneneingang | Ferritstab, ESD-Schutz |
+| 9 | RST | Reset, aktiv low | Pull-up 4.7 kΩ, von ESP32 |
+| 10 | SENB | Adresswahl I2C | fest verdrahtet (siehe unten) |
+| 11 | SCLK | I2C Takt | Pull-up 4.7 kΩ |
+| 12 | SDIO | I2C Daten | Pull-up 4.7 kΩ |
+| 13 | RCLK | Referenztakt | Quarz (OSC-IN), 22 pF nach GND |
+| 14 | VDD | 2.7 bis 3.6 V | 3.3 V, 100 nF und 1 µF |
+| 15 | GND | Masse | GND |
+| 16 | ROUT/DOUT | Audio rechts | Ausgang, 470 nF Koppelkondensator |
+
+Gehäuse: Rastermass 1.27 mm, Körper 3.90 x 9.90 mm (JEDEC MS-012). Temperaturbereich –20 bis 85 °C.
+
+## 4b. Beschaltung (Werte aus dem Mikroe-Schaltplan, Startwerte)
+
+Das Layout wird nach Schaltplan und Datenblatt gezeichnet. Die Werte unten sind Startwerte und werden im Labortest geprüft.
+
+* Quarz 32.768 kHz zwischen Pin 2 und Pin 13, je 22 pF nach GND.
+* I2C und Reset: Pull-ups 4.7 kΩ nach 3.3 V.
+* Versorgung: 100 nF und 1 µF direkt an Pin 14.
+* Adresse: SENB über 20 kΩ fest auf GND oder 3.3 V. Beim Mikroe-Click per Jumper 0x11 oder 0x63 wählbar. Wir legen sie fest und prüfen im Test, welche Adresse antwortet (Programming Guide AN332 gegenlesen).
+* Audio: je 470 nF in Reihe pro Kanal, dazu 20 kΩ Widerstände.
+* FM-Pfad: 1 nF, 100 pF, 270 nH, 100 nF und Schutzdioden BAV99.
+* AM-Pfad: 470 nF in Reihe, Ferritstab an Pin 8, Dioden BAV99 als Schutz.
+* Der Kopfhörerverstärker (LM4910) des Mikroe-Clicks entfällt. Das Tonsignal geht auf die Stiftleiste.
+* Die genaue Verschaltung (welcher Wert in welcher Leitung) wird aus dem Schaltplan gezeichnet, nicht aus dieser Liste. Die Ferritantenne (Induktivität) ist noch festzulegen.
+
 ## 5. Bestückung
 
 * Chip: Si4732-A10-GS im 16-poligen SOIC-Gehäuse.
-* Quarz: 32.768 kHz (Wert aus der PU2CLR-Vorlage, im Datenblatt zu bestätigen).
-* Entkopplung und Lastkondensatoren: Werte aus Datenblatt und Vorlage, nicht aus der Erinnerung.
+* Quarz: 32.768 kHz (bestätigt durch den Mikroe-Schaltplan).
+* Entkopplung und Lastkondensatoren: Werte aus Abschnitt 4b.
 * Alles SMD, bestückt vom Hersteller. Von Hand gelötet werden nur die Stiftleisten.
 * Mindestmenge: Platinen meist 5 Stück, bei der Bestückung vor der Bestellung im Angebot prüfen.
 
@@ -94,13 +133,13 @@ Qualität und Haltbarkeit haben Vorrang vor Grösse. Wenn eine enge Bestückung 
 
 ## 7. Offene Punkte
 
-1. Vollständiges Datenblatt des Si4732-A10 lesen: Pinout, Applikationsschaltung, Layout-Hinweise, I2C-Adresse. Die Pinbelegung aus der PU2CLR-Vorlage und ein Kurz-Datenblatt widersprechen sich, bis zur Prüfung wird nichts ins Layout übernommen.
-2. Schaltplan des Mikroe-Clicks zum Gegenlesen (Download bei Mikroe).
+1. Vollständiges Datenblatt des Si4732-A10 und AN332 besorgen (Marcel sucht): Applikationsschaltung mit Werten, Maximalwerte, Layout-Hinweise, I2C-Adresse. Pinbelegung ist geprüft (Abschnitt 4a), die Werte in 4b sind Startwerte.
+2. Erledigt: Mikroe-Schaltplan gegengelesen (Abschnitt 4a und 4b).
 3. Antennenanschluss des Ferritstabs: Anzapfung und Induktivität nach Datenblatt.
 4. Schutz der Antenneneingänge gegen statische Aufladung (SMD, auf dem Board).
 5. Verfügbarkeit von Chip, Quarz und Kondensatoren beim Hersteller, Angebot einholen.
 6. Lizenzdatei der PU2CLR-Bibliothek einsehen, Autor in der Doku nennen.
-7. Eigenes Repo für das RX-Board (Entscheid 2026-11-15, Namen und Anlegen offen, siehe GitHub-Regeln). Bis dahin liegt die Doku hier.
+7. Eigenes Repo für das RX-Board: `RX-Board-Si4732` ist angelegt (2026-11-15). Zugriff und erster Push stehen aus, bis dahin liegt die Doku hier.
 
 ## 8. Erklärt für Laien
 
