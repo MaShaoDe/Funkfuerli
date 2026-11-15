@@ -42,7 +42,7 @@ Was das Funkfüürli können muss. Die Technik dazu steht in [konzept.md](konzep
 | Nr | Anforderung | Bemerkung |
 |---|---|---|
 | K1 | 5 bis 8 Personen pro Kurs | Entscheidung 2026-11-15 |
-| K2 | Kostenziel 30 bis 60 CHF pro Bausatz | Annahme: inklusive Gehäuse, ohne Kursgebühr. Nach der Stückliste prüfen |
+| K2 | Kostenziel 30 bis 60 CHF pro Bausatz | Bestätigt 2026-11-15. Wenn es höher wird, wird es besprochen. Nach der Stückliste prüfen |
 | K3 | Bauanleitung bebildert, im Stil von "Sendung mit der Maus" | Deutsch, Schritt für Schritt, Selbsttest nach jedem Block |
 | K4 | Sicherheit | Lötkolben, bleifreies Lot, Schutzbrille, Aufsicht, Li-Ion nur mit Schutz und Verpolschutz, Altersgrenze festlegen |
 | K5 | Fertiges Prüfstück für den Kursleiter | Zum Vergleichen und für die Fehlersuche |
