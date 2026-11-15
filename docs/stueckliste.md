@@ -112,6 +112,17 @@ Beim Prototyp bewusst beide Akku-Varianten (LiPo und 18650) aufbauen und verglei
 * **Weiter:** Platine (offen), Display (offen), Akku und Lader (vorhanden, aber zum Nachbestellen offen).
 * **Fazit:** Mit den bisher geprüften Preisen sind erst 4 von 39 Positionen belegt. Das Kostenziel lässt sich erst mit den restlichen Angeboten prüfen.
 
+## Bewertet und verworfen: Si4732-Umbaumodul für UV-K5/K6
+
+Geprüft am 2026-11-15: "SI4732 SSB Receiver Modification Board with Crystal Oscillator for Quansheng UV-K5/K6, FPC-Version". Nicht geeignet:
+
+* Flexplatine mit kleinen Lötpads (G, R, A, AUDIO) und SMD-Bauteilen. Keine Stiftleisten, nicht steckbar, nicht THT.
+* Gebaut für den Einbau ins Funkgerät. Es gibt keine Pinbelegung, keinen offenen Schaltplan und keine Lizenz.
+* Preis je nach Händler etwa 18 bis 47 EUR oder USD plus Versand, die Chargen schwanken.
+* Als Referenz ansehen ist in Ordnung. Nicht nachbauen und nicht abzeichnen (Lizenz unklar).
+
+Bleibt dabei: Prototyp mit dem Mikroe AM/FM 2 Click, Kurssatz mit eigenem Mini-Modul nach der PU2CLR-Vorlage (MIT).
+
 ## THT-Konflikte
 
 Diese Positionen widersprechen "nur Nicht-SMD löten":
