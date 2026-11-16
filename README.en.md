@@ -1,5 +1,7 @@
 # Funkfüürli: DIY Emergency Radio
 
+<p align="center"><img src="docs/img/titelbild.jpg" alt="Funkfüürli: children and a grandfather soldering a DIY radio together" width="600"></p>
+
 [Deutsch](README.md) | [English](README.en.md)
 
 *A little fire in the dark. FM, MW and SW in your pocket when the grid goes down.*
