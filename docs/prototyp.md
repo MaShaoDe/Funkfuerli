@@ -46,3 +46,5 @@ Weiter zu Stufe 3, wenn die Tests bestanden sind und die offenen Punkte (Akku, L
 KiCad 9, Gerber im Repo, erst nach Stufe 2. Siehe [konzept.md](konzept.md) Abschnitt 9 und den Plan in der [README](../README.md).
 
 *Copyright FerienBSD aka Marcel Sauder. Doku unter CC-BY-4.0.*
+
+* Breadboard-Test ohne RX-Board: [breadboard.md](breadboard.md), [bom-breadboard.md](bom-breadboard.md)
