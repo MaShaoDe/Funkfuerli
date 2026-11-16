@@ -1,5 +1,7 @@
 # Funkfüürli: DIY-Notfallradio
 
+<p align="center"><img src="docs/img/titelbild.jpg" alt="Funkfüürli: Kinder und ein Grossvater löten gemeinsam ein DIY-Radio" width="600"></p>
+
 [Deutsch](README.md) | [English](README.en.md)
 
 *Ein kleines Feuer im Dunkeln. UKW, MW und KW in der Hosentasche, wenn das Netz ausfällt.*
