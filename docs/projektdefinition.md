@@ -1,15 +1,14 @@
 # Funkfüürli: Projektdefinition (Stand 2026-11-19, Entwurf)
 
-Dies ist das Hauptdokument. Alle anderen Dokumente (Pinplan, Stückliste, Breadboard, Firmware, Workshop) verweisen mit den Nummern (F1, G3, T5, O7 ...) hierher und wiederholen nichts. Ersetzt `konzept.md` und `anforderungen.md`. Der Projektstand steht in `STATUS.md`, die Aufgabenliste in der README.
+Dies ist das Hauptdokument. Alle anderen Dokumente (Pinplan, Stückliste, Breadboard, Firmware) verweisen mit den Nummern (F1, G3, T5, O7 ...) hierher und wiederholen nichts. Ersetzt `konzept.md` und `anforderungen.md`. Der Projektstand steht in `STATUS.md`, die Aufgabenliste in der README.
 
-Notfallradio für Workshops mit Schülern und Kindern. UKW, MW und KW, Akku mit Ladeanschluss, 3D-gedrucktes Gehäuse, eigene Platine. Open Source. Grundsatz: offene Software forken und anpassen, Hardware (Platine, Gehäuse) ist ein eigenes Design.
+Notfallradio, Hardware und Software. UKW, MW und KW, Akku mit Ladeanschluss, 3D-gedrucktes Gehäuse, eigene Platine. Open Source. Grundsatz: offene Software forken und anpassen, Hardware (Platine, Gehäuse) ist ein eigenes Design.
 
 ## 1. Rahmen
 
 * **UKW in der Schweiz:** Das Parlament hat die Abschaltung Ende 2026 am 9.12.2025 aufgehoben. Die SRG sendet laut Bakom-Konzession ab Mitte November 2026 wieder über erste UKW-Standorte (rund 80 % der Bevölkerung). Neue Privatradio-Konzessionen gelten von Januar 2027 bis Ende 2031. UKW bleibt politisch umstritten, KW ist davon unabhängig. Darum nicht nur UKW.
 * **Kein SDR:** Der Si4732 ist ein DSP-Empfängerchip (UKW, MW, LW, KW, RDS) ohne I/Q-Daten. Der ESP32 steuert ihn nur. Abstimmung digital per Drehencoder. Langwelle wird in der Firmware ausgeblendet. Ein Wasserfall geht nur im Projekt Wellenjäger, hier nur ein langsamer Bandscope (RSSI-Durchlauf).
-* **Zielgruppe und Kurs:** 5 bis 8 Personen pro Kurs.
-* **Abgrenzung zum Wellenjäger:** Das Funkfüürli ist das Basisprojekt (Notfallradio für Kinder). Alles zu Amateurfunk (SSB, Bandfilter, SDR, Wasserfall, Prüfungsstoff) steht im Projekt Wellenjäger (github.com/MaShaoDe/Wellenjaeger) und wird hier nicht ausgeführt.
+* **Abgrenzung:** Dieses Dokument beschreibt nur das Radio (Hardware und Software). Kurse, Workshops und Schulungsmaterial sind nicht Inhalt. Amateurfunk (SSB, Bandfilter, SDR, Wasserfall) steht im Projekt Wellenjäger (github.com/MaShaoDe/Wellenjaeger).
 
 ### Begriffe
 
@@ -41,11 +40,11 @@ Priorität: **M** = muss (erster Prototyp), **S** = soll, **K** = kann. Quelle: 
 | F5 | Akkuanzeige gross, mit Warnung | M | Fork/neu | |
 | F6 | Auto-Aus und Sleep-Timer | M | neu | |
 | F7 | Lautstärke mit Begrenzung (Kopfhörer) | M | neu | Poti am Modul oder Software, siehe O7 |
-| F8 | Kindermodus: 3 Bänder, wenige Tasten | S | neu | |
-| F9 | Lern-Modus: S-Meter, Bandscan, RFI-Jagd, Abschirmungstest | S | Fork/neu | |
+| F8 | Einfachmodus: 3 Bänder, wenige Tasten | S | neu | |
+| F9 | S-Meter und Bandscan (RSSI-Durchlauf) | S | Fork/neu | |
 | F10 | WLAN und BLE aus beim Hören | S | neu | Stör- und Stromgründe (T7) |
 | F11 | Senderliste EIBI, WLAN-Webseite, OTA, BLE, 2 Layouts | K | Fork | vorhanden, nicht Priorität |
-| F12 | SSB (Amateurfunk) | K | Fork | nur was der Fork mitbringt, Ausbau im Wellenjäger. Patch lädt der Teilnehmer selbst (L4) |
+| F12 | SSB (Amateurfunk) | K | Fork | nur was der Fork mitbringt, Ausbau im Wellenjäger. Patch lädt der Nutzer selbst (L4) |
 | F13 | Bluetooth-Audio zu Boombox | K | neu | siehe T6 |
 | F14 | Notfall-Extras (Lampe, Alarm) | K | neu | offen, vorerst nur Radio |
 | F15 | Watchdog, Brown-out, Neustart mit letzter Frequenz | S | Fork? | prüfen, was der Fork mitbringt (O13) |
@@ -71,7 +70,7 @@ Priorität: **M** = muss (erster Prototyp), **S** = soll, **K** = kann. Quelle: 
 | Nr | Anforderung | Bemerkung |
 |---|---|---|
 | H1 | Platinen in KiCad 9, Gerber im Repo | DRC vor jeder Bestellung. Siebdruck: Copyright und Repo-Link |
-| H2 | Durchsteckmontage (THT), kein SMD zum Löten | von den Teilnehmern gelötet |
+| H2 | Durchsteckmontage (THT), Chips als Module | Nachbau ohne Heissluft. Vorschlag, noch nicht entschieden |
 | H3 | Empfängerchip als Modul auf Stiftleisten | Si4732 ist SMD, kommt vorbestückt (siehe T1) |
 | H4 | ESP32 und Empfängermodul gesteckt, der Rest gelötet | weiche Sicherung (Schaum oder TPU), kein starrer Druck |
 | H5 | Kein Schaltnetzteil | linearer Lader, LDO. Ausnahme PAM8403 (Messung, O7) |
@@ -81,20 +80,9 @@ Priorität: **M** = muss (erster Prototyp), **S** = soll, **K** = kann. Quelle: 
 
 | Nr | Anforderung | Bemerkung |
 |---|---|---|
-| C1 | 3D-Druck, vor dem Kurs gedruckt | 1 bis 2 Gehäuse im Kurs drucken, Druckzeit höchstens 2 bis 3 Stunden |
+| C1 | 3D-Druck | Druckzeit höchstens 2 bis 3 Stunden |
 | C2 | Beschriftung mit Symbolen | kein Rufzeichen, keine privaten Angaben |
 | C3 | Dichtungen an Öffnungen | siehe G8 |
-
-### Kurs (K)
-
-| Nr | Anforderung | Bemerkung |
-|---|---|---|
-| K1 | 5 bis 8 Personen pro Kurs | |
-| K2 | (frei, nicht belegt) | |
-| K3 | Bauanleitung bebildert, Deutsch, Schritt für Schritt | Selbsttest nach jedem Block. Kommt als Cookbook |
-| K4 | Sicherheit | Lötkolben, bleifreies Lot, Schutzbrille, Aufsicht, Li-Ion nur mit Schutz und Verpolschutz, Mindestalter (O19) |
-| K5 | Fertiges Prüfstück für den Kursleiter | |
-| K6 | Lernmodule | RFI-Jagd, Abschirmung, Falltest |
 
 ### Notfall und Beschaffung (N, B)
 
@@ -119,7 +107,7 @@ Priorität: **M** = muss (erster Prototyp), **S** = soll, **K** = kann. Quelle: 
 | mindestens 14 freie GPIOs | Bedarf ca. 17: I2C 2, Si4732-Reset 1, Display (SPI) 5 bis 6, Encoder 3, Verstärker ein/aus 1, Klinkenkontakt 1, BT 2, Akku-ADC 1, Ladestatus 1 bis 2 |
 | Stiftleisten 2 x 22, Raster 2.54 mm | Steckplatz |
 | Eigener 3.3-V-Regler, 5-V- oder VBAT-Eingang | Versorgung |
-| USB zum Flashen | Teilnehmer flashen selbst |
+| USB zum Flashen | Nutzer flasht selbst |
 
 Beim N16R8 meiden (gegen Datenblatt prüfen): GPIO 0, 3, 45, 46 (Strapping), 19, 20 (USB), 26 bis 32 (Flash), 33 bis 37 (Octal-PSRAM). Ein klassischer ESP32 hat A2DP, aber der Fork läuft nicht darauf. C3, C6, C2 sind nicht vorgesehen. Stromwerte (S3 ca. 40 bis 60 mA) sind Grössenordnungen, messen.
 
@@ -156,11 +144,11 @@ Verstärker PAM8403 (HW-012, 20 Stück vorhanden), Class D, Betrieb ab ca. 2.5 V
 4. Display ohne PWM-Dimmung, WLAN und BT aus beim Hören.
 5. Kurze Leitungen, kurze Lautsprecherleitungen, Ferrit und Filter am PAM8403.
 6. Abschirmung nur um Störquellen (ESP32, Display, Lader), an einem Punkt geerdet, nie nahe am Ferritstab, nie Kontakt zu Zelle oder Federkontakten. Erst ohne Folie messen, dann mit.
-7. Messen: Radio auf leeren MW-Kanal, Störquellen einzeln zuschalten (ESP32-Modul, Lader, Verstärker, BT-Modul). Zugleich Lernmodul RFI-Jagd.
+7. Messen: Radio auf leeren MW-Kanal, Störquellen einzeln zuschalten (ESP32-Modul, Lader, Verstärker, BT-Modul). 
 
-**T8 Platine.** Vorschlag (O22): Die Hauptplatine mit ESP32-Steckplatz, Display, Encoder, Strom und Audio wird so ausgelegt, dass sie auch für den Wellenjäger taugt. Das Funkmodul steckt auf (Funkfüürli: RX-Board mit Si4732 über J1, Wellenjäger: SDR-Teil). Das RX-Board selbst taugt nicht als SDR-Modul (kein I/Q, J1 ohne I2S). Trägerplatine in KiCad 9 mit Buchsenleisten für ESP32-S3 und RX-Board. Fertigung bei JLCPCB oder PCBWay. Pinbelegung auf den N16R8 (strengste Variante) auslegen. Auf der Platine: Encoder, Display, LDO, Audioteil, Steckplatz BT-Modul, Akkupads und JST, Schutz, Jumper Mono/Stereo, Anschlüsse Antenne und Lader. Layout: Trennung Lader, MCU, Audio/BT und Empfang, durchgehende Massefläche, Ferritstab am Rand. Nur THT und Module, ein vorbestücktes Prüfstück.
+**T8 Platine.** Vorschlag (O22): Die Hauptplatine mit ESP32-Steckplatz, Display, Encoder, Strom und Audio wird so ausgelegt, dass sie auch für den Wellenjäger taugt. Das Funkmodul steckt auf (Funkfüürli: RX-Board mit Si4732 über J1, Wellenjäger: SDR-Teil). Das RX-Board selbst taugt nicht als SDR-Modul (kein I/Q, J1 ohne I2S). Trägerplatine in KiCad 9 mit Buchsenleisten für ESP32-S3 und RX-Board. Fertigung bei JLCPCB oder PCBWay. Pinbelegung auf den N16R8 (strengste Variante) auslegen. Auf der Platine: Encoder, Display, LDO, Audioteil, Steckplatz BT-Modul, Akkupads und JST, Schutz, Jumper Mono/Stereo, Anschlüsse Antenne und Lader. Layout: Trennung Lader, MCU, Audio/BT und Empfang, durchgehende Massefläche, Ferritstab am Rand. Nur THT und Module.
 
-**T9 Gehäuse.** Maximal ca. 180 x 120 mm, ohne Stützmaterial druckbar (Überhang höchstens 45 Grad), PETG (PLA nur innen), keine Metall- oder Kohlefaser-Filamente. 0.2 mm Spiel, M3-Schrauben mit Gewindeeinsätzen. Zweiteilig, 4 Schrauben, Batteriefach getrennt zugänglich. Wandstärke ca. 2 bis 2.4 mm, Kanten gerundet. Kunststoff schirmt nicht, der Empfang wird über Abstand und Layout geschützt. Öffnungen: Display, Encoder, Poti (Variante), Lautsprecher, BNC, Teleskop, Klinke, USB-C, BT-Taster. Akku in eigener Kammer mit Trennwand. CAD parametrisch (OpenSCAD oder FreeCAD) plus STEP und STL im Repo. Kurssatz: 10 bis 20 Gehäuse vorab drucken.
+**T9 Gehäuse.** Maximal ca. 180 x 120 mm, ohne Stützmaterial druckbar (Überhang höchstens 45 Grad), PETG (PLA nur innen), keine Metall- oder Kohlefaser-Filamente. 0.2 mm Spiel, M3-Schrauben mit Gewindeeinsätzen. Zweiteilig, 4 Schrauben, Batteriefach getrennt zugänglich. Wandstärke ca. 2 bis 2.4 mm, Kanten gerundet. Kunststoff schirmt nicht, der Empfang wird über Abstand und Layout geschützt. Öffnungen: Display, Encoder, Poti (Variante), Lautsprecher, BNC, Teleskop, Klinke, USB-C, BT-Taster. Akku in eigener Kammer mit Trennwand. CAD parametrisch (OpenSCAD oder FreeCAD) plus STEP und STL im Repo.
 
 **T10 Robustheit.** Abnahme: Falltest aus 1 m auf Holz oder Fliesen (flach vorne und hinten, Kante, Ecke, mit ausgefahrener Antenne). Danach: kein Riss, nichts lose, Radio startet, Abstimmung, Display, Ton und Laden funktionieren. Protokoll mit Datum, Gehäuse-Version, Material, Befund. Prinzipien:
 1. Last nie über die Platine. Tragend sind Gehäusewände und Stützsäulen, keine starren Rippen auf Modul oder Platine.
@@ -180,7 +168,7 @@ Verstärker PAM8403 (HW-012, 20 Stück vorhanden), Class D, Betrieb ab ca. 2.5 V
 | L1 | Hardware CERN-OHL-P-2.0, Doku CC-BY-4.0, Firmware folgt dem Fork (ATS Mini: MIT) | festgelegt |
 | L2 | Hardware des Original-Empfängers von Sunnygold ist CC BY-NC-SA 3.0. Das Funkfüürli zeichnet ein eigenes Board und kopiert den Schaltplan nicht | geklärt |
 | L3 | Quelltext nennt Sunnygold als Autor. Ob NC-lizenzierter Code im MIT-Repo steckt, ist nicht geklärt. Vor kostenpflichtiger Verbreitung beim Maintainer nachfragen (GitHub Discussions) | **offen (O12)** |
-| L4 | SSB-Patchdatei `patch_init.h` (Vadim Afonkin, über PU2CLR) hat ungeklärtes Weitergaberecht. SSB bleibt optional, der Teilnehmer lädt den Patch selbst, nicht vorinstalliert | **offen (O12)**, Workaround gilt |
+| L4 | SSB-Patchdatei `patch_init.h` (Vadim Afonkin, über PU2CLR) hat ungeklärtes Weitergaberecht. SSB bleibt optional, der Nutzer lädt den Patch selbst, nicht vorinstalliert | **offen (O12)**, Workaround gilt |
 | L5 | ESP32-SDR und ESP32-A1S-Tayloe haben keine Lizenzdatei | nicht verwenden |
 
 Autor und Copyright: `FerienBSD aka Marcel Sauder`.
@@ -191,7 +179,7 @@ Autor und Copyright: `FerienBSD aka Marcel Sauder`.
 |---|---|---|
 | O1 | ESP32-S3-DevKitC-1: vorhandene Module durchgehen (Stückzahl, Masse, Reihenabstand, Aufdruck N16R8 oder anderes), Modul wählen | offen |
 | O2 | Si4732-Modul: 1 Stück bestellt. Datenblatt prüfen (getrennte FM/AM-Eingänge, Audio L/R, Quarz, Raster) | bestellt, Lieferung offen |
-| O3 | RX-Board Rev A: Lieferung abwarten. Rev A hat kein KW, Rev B (mit KW über AMI, Umschalter) vor dem Kurs nötig. KW-Test erst mit Rev B | in Fertigung |
+| O3 | RX-Board Rev A: Lieferung abwarten. Rev A hat kein KW, Rev B (mit KW über AMI, Umschalter) nötig. KW-Test erst mit Rev B | in Fertigung |
 | O4 | Display 2.0" ST7789V: Pins, Stiftleiste, Anpassung von Auflösung und Layout im Fork | offen |
 | O5 | Akku: Kapazität 18650 und 14500 messen, Aufdrucke LiPo-Schutz lesen, 14650 aufnehmen oder streichen, JST und Verpolschutz, Vergleich im Prototyp | offen |
 | O6 | LDO-Typ prüfen (LF33CV, mind. 500 mA), ESP32-Einspeisung 3.3 V bestätigen | offen |
@@ -207,7 +195,6 @@ Autor und Copyright: `FerienBSD aka Marcel Sauder`.
 | O16 | Störtest: Quellen einzeln zuschalten, Abschirmung mit und ohne Folie | offen |
 | O17 | IP54: lösen oder Ziel abschwächen (G8) | offen |
 | O18 | Notfall-Laden (N1) als eigenes Konzept, Notfall-Extras (F14) ja oder nein | offen |
-| O19 | Mindestalter für Löten festlegen (K4) | offen |
 | O20 | Drucker und Bauraum im Club und FabLab, CAD-Werkzeug | offen |
 | O21 | Namensprüfung (Swissreg/IGE und GitHub) vor Veröffentlichung | offen |
 | O22 | Gemeinsame Hauptplatine für Funkfüürli und Wellenjäger (T8): Vorschlag, noch nicht beschlossen. Prüfen: Pinplan mit I2S und Si5351 für den Wellenjäger, Stecker J1 für das Funkmodul, Störungen im HF-Teil | offen, Entscheid vor KiCad |
