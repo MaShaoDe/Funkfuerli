@@ -100,8 +100,8 @@ Das Board kommt voll bestückt. Die Stiftleisten J1 (1x9), J2 (1x2, FM) und J3 (
 
 | J1 Pin | Signal | Verbindung am Breadboard | Bemerkung |
 |---|---|---|---|
-| 1 | AUDIO_L | über 10 kΩ an Knoten M (Mischer) | statt Handy, nie beides gleichzeitig |
-| 2 | AUDIO_R | über 10 kΩ an Knoten M | Mono-Mischer |
+| 1 | AUDIO_L | über 22 kΩ an Knoten M (Mischer) | statt Handy, nie beides gleichzeitig |
+| 2 | AUDIO_R | über 22 kΩ an Knoten M | Mono-Mischer |
 | 3 | GND | GND | |
 | 4 | 3V3 | 3V3 des DevKits | nur 3.3 V, nie Akku oder 5 V |
 | 5 | SDA | GPIO 8 | Pull-up 4.7 kΩ liegt auf dem Board, externe weglassen |
@@ -143,14 +143,13 @@ Testbänder (abends, Richtwerte): 49 m um 6 MHz, 31 m um 9.5 MHz, 25 m um 11.7 M
 
 ### Klinkenbuchse (Kopfhörer und Line-Out)
 
-Stereo direkt vom Chip, so sieht es das Konzept vor (Abschnitt 7). Ob der Chip Kopfhörer treibt, ist am Datenblatt (Lastimpedanz) und im Test zu prüfen. Zuerst mit Aktivlautsprecher oder Kopfhörer mit hoher Impedanz.
+**Der Chip kann keine Kopfhörer treiben.** Er liefert Line-Pegel (80 mV eff, Last mindestens 10 kΩ, höchstens 50 pF, Datenblatt Si473x-B20). Das Mikroe-Click löst es mit einem Kopfhörerverstärker (LM4910). Für das Funkfüürli ist deshalb ein eigener Kopfhörerverstärker vorgesehen (TPA6132A2, siehe [projektdefinition.md](projektdefinition.md) T6). Auf dem Breadboard ist er nicht ohne Weiteres aufbaubar (Gehäuse WQFN 3x3 mm), darum gilt für den Test:
 
-| Buchse | Ziel | Bemerkung |
-|---|---|---|
-| Spitze (links) | J1 Pin 1 (AUDIO_L) | Koppel-Kondensatoren auf dem RX-Board nachsehen (rx-board.md), sonst 10 µF in Reihe |
-| Ring (rechts) | J1 Pin 2 (AUDIO_R) | wie links |
-| Hülse | GND | |
-| Schaltkontakt | GPIO 6 | Pegel am Multimeter prüfen, Low beim Einstecken. Ersetzt den Taster aus Schritt 5d |
+| Test | Aufbau |
+|---|---|
+| Line-Out (Schritt 5d) | Buchse, Spitze an J1 Pin 1 (AUDIO_L), Ring an J1 Pin 2 (AUDIO_R), Hülse GND, Kabel zu Aktivlautsprecher oder Stereoanlage. Kein Kopfhörer anschliessen |
+| Schaltkontakt | an GPIO 6, Low beim Einstecken (am Multimeter prüfen). Die Firmware schaltet die PAM8403-Versorgung über GPIO 5 ab, ein Hardware-Umschalter ist nicht nötig |
+| Kopfhörer (Schritt 5f) | erst mit einem Testmodul mit TPA6132A2, sobald vorhanden (Beschaffung: siehe Stückliste, offen) |
 
 ### Audio
 
@@ -158,8 +157,8 @@ Stereo direkt vom Chip, so sieht es das Konzept vor (Abschnitt 7). Ob der Chip K
 |---|---|---|
 | GPIO 15 (Testton) | 10 kΩ, dann Knoten T | Reserve-Pin, PWM 1 kHz |
 | Knoten T | 1 kΩ nach GND und 100 nF nach GND | Teiler und Tiefpass, etwa 0.3 Vpp |
-| Handy oder Player, Klinke L | 10 kΩ, dann Knoten M | Quelle Ersatz, solange das RX-Board fehlt |
-| Handy oder Player, Klinke R | 10 kΩ, dann Knoten M | Mono-Mischer |
+| Handy oder Player, Klinke L | 22 kΩ, dann Knoten M | Quelle Ersatz, solange das RX-Board fehlt |
+| Handy oder Player, Klinke R | 22 kΩ, dann Knoten M | Mono-Mischer |
 | Knoten T oder M (Jumper) | 1 µF in Reihe, dann PAM8403 L-IN | Eingang wählen. Koppel-Kondensator nur, wenn das Modul keinen hat |
 | PAM8403 R-IN | offen | Mono |
 | PAM8403 GND | GND | |
@@ -167,7 +166,10 @@ Stereo direkt vom Chip, so sieht es das Konzept vor (Abschnitt 7). Ob der Chip K
 | PAM8403 L+ und L- | Lautsprecher K 50 | Minuspol nicht an Masse (BTL) |
 | GPIO 6 | Taster oder Jumper nach GND | Ersatz für den Klinken-Schaltkontakt, Pull-up intern |
 
-Der Widerstandswert des Mischers (10 kΩ) ist ein Startwert. Pegel und Eingangsimpedanz des Moduls im Test prüfen.
+**Mischer und Pegel (aus den Datenblättern gerechnet):**
+* Der Chip verlangt eine Last von mindestens 10 kΩ pro Kanal (Datenblatt Si473x-B20, Si4732-A10 nennt den Wert nicht, messen). Auf dem RX-Board liegt je Kanal schon ein 20-kΩ-Widerstand nach GND (nach 470 nF). Mit 10 kΩ im Mischer läge die Last bei Modul-Eingang 10 kΩ nur noch bei etwa 8.6 kΩ. Mit 22 kΩ bleibt sie über 11 kΩ.
+* Ausgangspegel des Chips: 80 mV eff typisch (72 bis 90). Nach dem Mischer (Modul-Eingang 10 kΩ angenommen) bleiben etwa 38 mV, nach dem PAM8403 (24 dB) etwa 0.6 V eff, das sind etwa 0.045 W am 8-Ω-Lautsprecher. Das ist Zimmerlautstärke. Ist es zu leise, wird der Mischer durch einen Operationsverstärker ersetzt (Rev B des Basisboards).
+* Vor Schritt 5b den Eingangswiderstand des HW-012 zwischen Eingang und GND mit dem Multimeter messen (Poti auf Maximum) und ins Messprotokoll eintragen.
 
 **Versorgung des Verstärkers:**
 * 5a (erster Test): PAM8403 an 5 V von USB (Anschluss "USB" des DevKits oder Powerbank), GPIO 5 nicht benutzt.
@@ -186,7 +188,9 @@ Kette: USB, TP4056, Akku, Schottky-Diode 1N5819, Hauptschalter, Ferritperle und 
 | LDO 3.3 V (Eingang, Ausgang, GND) | 100 nF am Ein- und Ausgang, ausserdem Elko 10 µF am Ausgang |
 | LDO-Ausgang | Pin 3V3 des DevKits (USB abgesteckt) |
 
-LDO: braucht mindestens 500 mA und kleine Dropout-Spannung (Entscheid 1 in [platine.md](platine.md)). Für das Breadboard am einfachsten ein fertiges Modul mit AP2112K-3.3 oder ein LF33CV (TO-220), Datenblatt vor dem Einsatz prüfen. Ein MCP1700 reicht nicht, ein AMS1117 hat zu viel Spannungsabfall.
+LDO (Entscheid): **AP2112K-3.3** (Diodes, SOT-23-5). Datenblatt: 600 mA, Dropout typisch 250 mV bei 600 mA (höchstens 400 mV), Eingang 2.5 bis 6 V, Ruhestrom 55 µA, Rauschen 50 µV eff, Unterdrückung 65 dB bei 1 kHz. Der ESP32-S3 braucht 3.0 bis 3.6 V und Espressif empfiehlt mindestens 500 mA, der Si4732 2.7 bis 3.6 V. Für das Breadboard ein fertiges Modul oder eine SOT-23-5-Adapterplatine (mit dem vorhandenen Lötgerät und der Lupe lötbar). Der LF33CV (TO-220, 400 mV Dropout bei 500 mA, 500 µA Ruhestrom) ist nur Notlösung. MCP1700 reicht nicht, AMS1117 hat zu viel Spannungsabfall.
+
+Grenze, gerechnet: Nach der Schottky-Diode (etwa 0.3 V) liegen noch Akku minus 0.3 V am LDO. Er regelt auf 3.3 V, solange der Akku über etwa 3.7 bis 3.9 V liegt. Darunter folgt der Ausgang dem Eingang. Der ESP32 hält bis 3.0 V, also etwa bis Akku 3.5 bis 3.6 V. Abschaltschwelle in der Firmware um 3.5 V, Wert nach Schritt 7d festlegen.
 
 Messteiler an den ADC-Eingängen:
 
@@ -234,6 +238,8 @@ Jeweils erst weiter, wenn der Schritt läuft. Die Befehle gehören zum Testsketc
 | 5b | Handy über Klinke | Musik hörbar, Mono-Mischer prüfen | |
 | 5c | Schalter über GPIO 5: Befehl `p` | Verstärker ein und aus, Ruhestrom messen | |
 | 5d | Klinken-Ersatz: Befehl `j` | Pegel wechselt beim Jumper | |
+| 5e | Störtest Verstärker: MW-Sender abstimmen, PAM8403 mit Lautsprecher ein und aus (GPIO 5) | Rauschen oder Pfeifen im MW-Band mit Verstärker ein, ja oder nein | |
+| 5f | Kopfhörer: Testmodul mit TPA6132A2 an J1 Pin 1 und 2 | Ton auf Kopfhörer, Pegel, Rauschen | |
 | 6 | Menü und Lautstärke | später mit Firmware aus dem Fork | |
 | 7a | Strom über USB messen (ohne und mit Display, ohne und mit Verstärker, ohne und mit RX-Board) | Werte notieren | |
 | 7b | LDO-Kette aufbauen, USB am DevKit abstecken, Akku anschliessen | 3V3 am Pin | |
@@ -279,6 +285,9 @@ Weiter zu Stufe 2 (Lochraster), wenn Display, Encoder, I2C, Ton über Lautsprech
 | Akkuspannung ADC gegen Multimeter | | | |
 | Strom mit RX-Board (UKW, MW) | | | |
 | I2C-Adresse und Teilenummer des Chips | | | |
+| Eingangswiderstand HW-012 (Poti Maximum) | | | |
+| Audiopegel am Chip-Ausgang (mVeff), Pegel am Lautsprecher | | | |
+| MW-Störung durch PAM8403 (ja, nein, Stärke) | | | |
 | UKW: Anzahl Sender, Antenne | | | |
 | MW: Anzahl Sender, Antenne | | | |
 | KW über J2 (P4): Band, Antenne, Anzahl Sender | | | |
