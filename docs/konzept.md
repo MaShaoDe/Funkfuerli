@@ -20,7 +20,7 @@ Der Si4732 liefert kein I/Q. Ein echter Wasserfall ist nur im Projekt Wellenjäg
 * Das Original zielt auf einen ESP32-S3 mit eigenem Display (320x170). Vorgesehen ist ein 2.0"-TFT mit ST7789V (240x320, SPI). Anzupassen sind Pinbelegung, Display-Auflösung und Layout, Treiber und Verstärker-Enable (Aufwand klein bis mittel).
 * Vorbehalte:
   * Hardware (Schaltplan, Board) des Original-Empfängers von Sunnygold steht unter CC BY-NC-SA 3.0, also nicht kommerziell. Das Funkfüürli zeichnet ein eigenes Board und kopiert diesen Schaltplan nicht.
-  * Im Quelltext ist Sunnygold in der Autorenzeile genannt. Ob davon Code mit NC-Lizenz im MIT-Repo steckt, ist nicht abschliessend geklärt. Vor kostenpflichtiger Verbreitung beim Maintainer nachfragen (GitHub Discussions).
+  * Im Quelltext ist Sunnygold in der Autorenzeile genannt. Ob davon Code mit NC-Lizenz im MIT-Repo steckt, ist nicht abschliessend geklärt. Vor kommerzieller Verbreitung beim Maintainer nachfragen (GitHub Discussions).
   * Die SSB-Patchdatei (`patch_init.h`) stammt nicht von den Maintainern (Quelle: Vadim Afonkin, über die PU2CLR-Bibliothek verteilt). Das Weitergaberecht ist ungeklärt. SSB ist deshalb im Kinder-Bausatz optional (Patch lädt der Teilnehmer selbst) und nicht vorinstalliert.
 * Fallback ohne Fork: PU2CLR SI4735-Bibliothek (MIT), eigenes schlankes Sketch nach deren ESP32-Beispielen.
 
@@ -94,7 +94,7 @@ Die Akkufrage bleibt offen. Die Varianten liegen vor und werden im Prototyp verg
 ## 7. Audio
 Der Ton soll auf drei Wegen hörbar sein:
 
-1. **Interner Lautsprecher** (Standard): Visaton K 50 (Art. 2901), 8 Ω, 2 W, 250 bis 10000 Hz, 50 x 17 mm, Schallwandöffnung 45 mm (laut Datenblatt). Für Sprache und Radio ausreichend und günstig. Er sitzt in einem geschlossenen, abgedichteten Resonanzraum im 3D-gedruckten Gehäuse und ist am Gehäuse befestigt, nicht über die Platine. Variante: Lautsprecher mit eigenem Gehäuse (mehr Bass, grösser), an den 4 Befestigungsohren am Gehäuse verschraubt, Bassreflex-Öffnung nicht abdecken. Impedanz und Leistung dieser Variante sind noch zu klären.
+1. **Interner Lautsprecher** (Standard): Visaton K 50 (Art. 2901), 8 Ω, 2 W, 250 bis 10000 Hz, 50 x 17 mm, Schallwandöffnung 45 mm (laut Datenblatt). Für Sprache und Radio ausreichend. Er sitzt in einem geschlossenen, abgedichteten Resonanzraum im 3D-gedruckten Gehäuse und ist am Gehäuse befestigt, nicht über die Platine. Variante: Lautsprecher mit eigenem Gehäuse (mehr Bass, grösser), an den 4 Befestigungsohren am Gehäuse verschraubt, Bassreflex-Öffnung nicht abdecken. Impedanz und Leistung dieser Variante sind noch zu klären.
 2. **3.5-mm-Buchse für Kopfhörer und Line-Out**: Beim Einstecken schaltet der Schaltkontakt den internen Lautsprecher ab (der Minuspol des Lautsprechers darf dabei nicht an Masse, siehe Verstärker). Immer stereo, direkt vom Si4732. Damit lassen sich auch Stereoanlage oder aktiver Lautsprecher per Kabel anschliessen. Für den Line-Out ist ein Audio-Übertrager (1:1) gegen Brummschleifen als Option zu testen.
 3. **Bluetooth zu Boombox oder externem Lautsprecher** (Option):
    * Bluetooth-Audio (A2DP) braucht Bluetooth Classic. Der S3 hat nur BLE und kann daher nicht direkt an einen Bluetooth-Lautsprecher senden (im Datenblatt prüfen).
@@ -167,7 +167,7 @@ Abnahmekriterium: **Falltest aus 1 m auf Holz oder Fliesen.** Mehrere Stürze (f
 Prinzipien:
 1. **Last nie über die Platine.** Wenn jemand auf das Gerät sitzt oder steht, darf nichts auf Modul, Display oder Platine drücken. Keine starren Rippen oder Stege vom Deckel auf Modul oder Platine. Die tragende Struktur sind Gehäusewände und Stützsäulen neben der Platine.
 2. **Weich halten statt hart klemmen.** Modul, Display und Akku werden mit flexiblem Kunststoff (TPU-Pads aus dem 3D-Drucker) oder Schaumstoff (Moosgummi, PU-Schaum) gepolstert und nur leicht angedrückt. Kein Dauerdruck auf Steckverbindungen.
-3. **Modul:** Aufnahme mit Seitenführung im Gehäuse, von oben ein weiches Pad. Buchsenleisten mit gedrehten Präzisionskontakten statt billiger Streifen. Für eine Endversion alternativ die Stiftleiste direkt einlöten.
+3. **Modul:** Aufnahme mit Seitenführung im Gehäuse, von oben ein weiches Pad. Buchsenleisten mit gedrehten Präzisionskontakten statt einfacher Steckerstreifen. Für eine Endversion alternativ die Stiftleiste direkt einlöten.
 4. **Platine:** 4 M3-Schrauben auf Abstandsbolzen, bei Bedarf mit Gummitüllen als Dämpfung.
 5. **Gehäuse:** PETG, Wandstärke ca. 2.4 mm, abgerundete Ecken, Rippen nur an den Wänden, Stossecken (Bumper) aus TPU.
 6. **Akku (schwerstes Teil):** eigene Kammer mit Trennwand, Zelle seitlich geführt, gepolstert und von oben gesichert (Abdeckung). Der Halter ist auf die Platine gelötet, wird aber zusätzlich vom Gehäuse gehalten, die Lötstellen tragen nur die Elektrik. Zelle im Halter mit Klettband oder wiederlösbarem Kabelbinder gesichert. Nur geschützte Zellen oder Schutz auf der Platine (Abschnitt 6). Beim Stoss kann der Kontakt kurz abheben: Pufferkondensator und Watchdog (Punkt 10). Das Gehäuse schützt die Zelle vor Quetschung.
@@ -201,13 +201,13 @@ Zusätzlich vorgesehen:
 1. ESP32-S3-DevKitC-1: Stückzahl, Länge, Breite und Reihenabstand der Stiftleisten am vorhandenen Modul, Aufdruck des Moduls (N16R8 oder andere Variante).
 2. Si4732-Modul beschaffen: Variante im Datenblatt von Silicon Labs und gegen die Firmware prüfen. Getrennte FM- und AM-Eingänge, Audio links und rechts, Quarz, Raster 2.54 mm.
 3. Display 2.0" ST7789V (240x320): Pins, Stiftleiste, Anpassung von Auflösung und Layout im Fork (Original 320x170).
-4. Akku offen: Kapazität der NCR18650B und der 14500 messen, Aufdrucke der Schutzplatine des LiPo lesen, Stecker (JST) und Verpolschutz, Vergleich im Prototyp (Falltest, Laufzeit, Aufwand beim Zusammenbau, Preis).
+4. Akku offen: Kapazität der NCR18650B und der 14500 messen, Aufdrucke der Schutzplatine des LiPo lesen, Stecker (JST) und Verpolschutz, Vergleich im Prototyp (Falltest, Laufzeit, Aufwand beim Zusammenbau).
 5. Spannungsregler: Typ klären. Einspeisung des ESP32-Moduls mit 3.3 V oder 5 V entscheiden.
 6. Verstärker HW-012 (PAM8403): Pegel, Eingangsimpedanz, Standby. Lautsprecher K 50: Resonanzraum auslegen. Lautsprecher-Box (Variante): Ohm, Watt, Masse. Lautstärke per Poti oder Software.
 7. Bluetooth-Audio: externes Sendemodul oder klassischer ESP32 mit A2DP? Bluetooth-Classic-Angabe im Datenblatt bestätigen.
-8. ATS Mini: Maintainer fragen wegen Sunnygold-Code und SSB-Patch-Weitergabe, bevor kostenpflichtige Kurse laufen. ESP32-SDR und ESP32-A1S-Tayloe haben keine Lizenzdatei.
+8. ATS Mini: Maintainer fragen wegen Sunnygold-Code und SSB-Patch-Weitergabe, bevor Kurse laufen. ESP32-SDR und ESP32-A1S-Tayloe haben keine Lizenzdatei.
 9. Anschluss des Ferritstabs am Si4732 und Umschaltung FM/AM klären (Datenblatt).
-10. Kursgrösse, Dauer, Materialkosten pro Teilnehmer. Ein Kostenziel wird noch nicht festgelegt, erst nach der Stückliste. Zum Vergleich: Ein kommerzieller analoger Radio-Bausatz kostet etwa 50 CHF.
+10. Kursgrösse und Dauer.
 11. Welcher Drucker und welcher Bauraum im Club und im FabLab? CAD-Werkzeug festlegen.
 12. Namensprüfung (Swissreg/IGE und GitHub) vor der Veröffentlichung.
 13. Kleber für Bauteile festlegen (Heissleim, neutral vernetzendes Silikon, Epoxid).

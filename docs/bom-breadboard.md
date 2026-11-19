@@ -1,6 +1,6 @@
 # Funkfüürli: provisorische Stückliste Breadboard-Test (Stand 2026-11-16, Entwurf)
 
-Gilt für [breadboard.md](breadboard.md), ohne RX-Board. Keine Preise, Bezugsquellen erst beim Bestellen. Bestand laut [inventar.md](inventar.md), Anzahl vor dem Bestellen nachzählen.
+Gilt für [breadboard.md](breadboard.md), ohne RX-Board. Bezugsquellen erst beim Bestellen. Bestand laut [inventar.md](inventar.md), Anzahl vor dem Bestellen nachzählen.
 
 ## Vorhanden (Bestand prüfen)
 
