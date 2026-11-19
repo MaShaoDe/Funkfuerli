@@ -141,6 +141,17 @@ J3 Pin 1 --- C3 33 pF --- Spule 220 uH --- J3 Pin 2 (GND)
 
 Testbänder (abends, Richtwerte): 49 m um 6 MHz, 31 m um 9.5 MHz, 25 m um 11.7 MHz, 19 m um 15.3 MHz. Notieren: Band, Antenne, Eingang (J2 oder J3), wie viele Sender verständlich sind.
 
+### Klinkenbuchse (Kopfhörer und Line-Out)
+
+Stereo direkt vom Chip, so sieht es das Konzept vor (Abschnitt 7). Ob der Chip Kopfhörer treibt, ist am Datenblatt (Lastimpedanz) und im Test zu prüfen. Zuerst mit Aktivlautsprecher oder Kopfhörer mit hoher Impedanz.
+
+| Buchse | Ziel | Bemerkung |
+|---|---|---|
+| Spitze (links) | J1 Pin 1 (AUDIO_L) | Koppel-Kondensatoren auf dem RX-Board nachsehen (rx-board.md), sonst 10 µF in Reihe |
+| Ring (rechts) | J1 Pin 2 (AUDIO_R) | wie links |
+| Hülse | GND | |
+| Schaltkontakt | GPIO 6 | Pegel am Multimeter prüfen, Low beim Einstecken. Ersetzt den Taster aus Schritt 5d |
+
 ### Audio
 
 | Von | Nach | Bemerkung |
@@ -185,6 +196,23 @@ Messteiler an den ADC-Eingängen:
 | USB-Erkennung (VBUS) | 100 kΩ von VBUS nach GPIO 17, 150 kΩ von GPIO 17 nach GND | GPIO 17 | 5 V ergibt 3.0 V |
 | Ladestatus CHRG | TP4056 CHRG-Pin nach GPIO 16 | GPIO 16 | Open-Collector, interner Pull-up, Low heisst laden |
 
+## Aufbau in der Kartonschachtel
+
+Vorschlag, damit der Prototyp ein Gerät ist und nicht ein Kabelhaufen:
+
+* Zwei Breadboards auf dem Boden festkleben (Doppelklebeband): links Steuerung (ESP32, Display, Encoder), rechts Audio und Strom.
+* Display und Encoder in den Deckel oder die Frontseite, Löcher schneiden. Lautsprecher dahinter.
+* Ferritstab und RX-Board an das andere Ende der Schachtel, mindestens eine Handbreit von ESP32, Display, Verstärker und Akku. Teleskopantenne durch ein Loch nach oben.
+* Akku in eine eigene Ecke, Kabel mit Kabelbinder fixieren, USB-Buchse des DevKits erreichbar lassen.
+* Erst alles offen testen, dann schliessen. Der Karton schirmt nichts ab, er dient nur der Ordnung.
+
+## Wenn alles da ist: Vorbereitung
+
+1. Arduino IDE mit ESP32-Core 3.x. Board "ESP32S3 Dev Module", Flash 16 MB, PSRAM OPI, USB CDC On Boot aktiviert (Vorschlag, gegen die Boardliste prüfen). USB-Kabel am Anschluss "USB" (nativ). Bibliotheken: Adafruit GFX, Adafruit ST7789.
+2. Der Sketch in `firmware/breadboard_test/` ist noch nicht kompiliert. Fehler beim ersten Übersetzen sind zu erwarten und gehören ins Messprotokoll.
+3. Reihenfolge einhalten: Schritte 1 bis 3 ohne RX-Board, Schritt 4 mit RX-Board, Strom (Schritt 7) zuletzt.
+4. Jeden Schritt im Messprotokoll abhaken. Bei einem Fehler nicht weiterbauen, sondern die Fehlersuche unten abarbeiten.
+
 ## Testablauf
 
 Jeweils erst weiter, wenn der Schritt läuft. Die Befehle gehören zum Testsketch.
@@ -198,7 +226,7 @@ Jeweils erst weiter, wenn der Schritt läuft. Die Befehle gehören zum Testsketc
 | 3b | Reset: Befehl `r` | LED blinkt kurz | |
 | 4a | RX-Board anschliessen (ohne Antenne, ohne Audio), 3V3 und GND prüfen | kein Kurzschluss, `i` zeigt 0x11 | |
 | 4b | Chip-Test: POWER_UP mit FUNC = 15 | Teilenummer Si4732 kommt zurück | |
-| 4c | UKW abstimmen, Teleskop an J2, Ton über PAM8403 oder Kopfhörer | Sender hörbar (P2) | |
+| 4c | UKW abstimmen, Teleskop an J2, Ton über PAM8403 und Lautsprecher | Sender hörbar (P2) | |
 | 4d | MW und LW abstimmen, Ferritstab an J3 | Sender hörbar (P3) | |
 | 4e | KW über J2 (FMI) | Sender hörbar oder nicht (P4) | |
 | 4f | KW über J3 (AMI) mit Zusatzschaltung | Sender hörbar oder nicht (P5) | |
@@ -214,6 +242,20 @@ Jeweils erst weiter, wenn der Schritt läuft. Die Befehle gehören zum Testsketc
 | 8 | Pinplan korrigieren | Abweichungen vom Fork notieren | |
 
 Weiter zu Stufe 2 (Lochraster), wenn Display, Encoder, I2C, Ton über Lautsprecher und die Stromkette laufen.
+
+## Fehlersuche
+
+| Symptom | Zuerst prüfen |
+|---|---|
+| Sketch lädt nicht | richtiger USB-Anschluss, Boot-Taste halten beim Verbinden, Datenkabel |
+| Display bleibt weiss oder schwarz | Pins CS, DC, RST, Backlight, Betriebsspannung 3.3 V, Modulbeschriftung gegen Tabelle |
+| `i` findet nichts | SDA und SCL vertauscht, 3V3 und GND am Modul, Pull-ups, Kontakt der Stiftleiste |
+| 0x11 fehlt, aber 0x3C geht | Reset-LED noch dran, RST nicht an GPIO 7, SENB-Pegel (0x11 erwartet), Lötstellen J1 |
+| Chip antwortet, kein Ton | 500 ms nach POWER_UP gewartet, Lautstärke, OPMODE 0x05, Koppel-Kondensator, Mischer-Jumper |
+| Nur Rauschen oder Brummen | Abstand zu ESP32, Display und Verstärker, Antenne angeschlossen, Netzgerät statt USB-Hub probieren |
+| UKW geht, KW nicht | erwartet bei Rev A, Ergebnis in P4 und P5 notieren |
+| Verstärker pfeift | Eingangsleitungen kurz halten, Masse sternförmig, Eingang abklemmen als Gegenprobe |
+| 3V3 bricht ein | Akku leer, Dropout der LDO-Kette, USB und LDO gleichzeitig am 3V3-Pin |
 
 ## Grenzen
 
