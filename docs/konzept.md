@@ -1,5 +1,7 @@
 # Funkfüürli: Konzept (Stand 2026-11-13, Entwurf)
 
+> **Hinweis:** Massgebend ist die [Projektdefinition](projektdefinition.md). Dieses Dokument bleibt als Hintergrund mit Herleitung und Quellen. Bei Widersprüchen gilt die Projektdefinition.
+
 Notfallradio für Workshops mit Schülern und Kindern. UKW, MW und KW, Akku mit Ladeanschluss, 3D-gedrucktes Gehäuse, eigene Platine. Open Source.
 
 Grundsatz: Bestehende offene Software forken und anpassen, nicht von Grund auf neu entwickeln. Die Hardware (Platine, Gehäuse) ist ein eigenes Design. Als Mikrocontroller dient ein ESP32-S3-Modul im Format ESP32-S3-DevKitC-1 (N16R8). Das Inventar steht in `docs/inventar.md`.
