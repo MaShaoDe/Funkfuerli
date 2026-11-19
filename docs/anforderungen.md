@@ -42,11 +42,10 @@ Was das Funkfüürli können muss. Die Technik dazu steht in [konzept.md](konzep
 | Nr | Anforderung | Bemerkung |
 |---|---|---|
 | K1 | 5 bis 8 Personen pro Kurs | Entscheidung 2026-11-15 |
-| K2 | Kostenziel 30 bis 60 CHF pro Bausatz | Bestätigt 2026-11-15. Wenn es höher wird, wird es besprochen. Nach der Stückliste prüfen |
-| K3 | Bauanleitung bebildert, im Stil von "Sendung mit der Maus" | Deutsch, Schritt für Schritt, Selbsttest nach jedem Block |
-| K4 | Sicherheit | Lötkolben, bleifreies Lot, Schutzbrille, Aufsicht, Li-Ion nur mit Schutz und Verpolschutz, Altersgrenze festlegen |
-| K5 | Fertiges Prüfstück für den Kursleiter | Zum Vergleichen und für die Fehlersuche |
-| K6 | Lernmodule | RFI-Jagd, Abschirmung, Falltest |
+| K2 | Bauanleitung bebildert, im Stil von "Sendung mit der Maus" | Deutsch, Schritt für Schritt, Selbsttest nach jedem Block |
+| K3 | Sicherheit | Lötkolben, bleifreies Lot, Schutzbrille, Aufsicht, Li-Ion nur mit Schutz und Verpolschutz, Altersgrenze festlegen |
+| K4 | Fertiges Prüfstück für den Kursleiter | Zum Vergleichen und für die Fehlersuche |
+| K5 | Lernmodule | RFI-Jagd, Abschirmung, Falltest |
 
 ## 5. Betrieb im Notfall
 
@@ -69,8 +68,7 @@ Was das Funkfüürli können muss. Die Technik dazu steht in [konzept.md](konzep
 3. **PAM8403:** Class-D-Verstärker, schaltet selbst bei einigen 100 kHz. H6 gilt für Regler und Lader, der Verstärker bleibt mit Messung. Ausweichlösung LM386.
 4. **IP54:** Offene Ausschnitte (USB-C, BNC, Klinke, Lautsprecher, Teleskopantenne) machen IP54 schwierig. Mit Dichtungen und Abdeckungen lösen oder das Ziel zu "spritzwassergeschützt" abschwächen.
 5. **Störarm statt "alles entstört":** Ein ESP32, ein Display und ein Verstärker im gleichen Gehäuse stören immer etwas. Ziel ist, dass MW und KW im Test brauchbar bleiben.
-6. **Kostenziel 30 bis 60 CHF:** Mit der Stückliste prüfen. Platine, Gehäuse, ESP32-Modul, Display, Empfängermodul, Akku und Verstärker liegen zusammen schnell im oberen Bereich.
-7. **Notfall-Laden (N1):** Eigenes Konzept, noch nicht begonnen.
-8. **Alterszielgruppe:** Mindestalter für das Löten festlegen.
+6. **Notfall-Laden (N1):** Eigenes Konzept, noch nicht begonnen.
+7. **Alterszielgruppe:** Mindestalter für das Löten festlegen.
 
 *Copyright FerienBSD aka Marcel Sauder. Doku unter CC-BY-4.0.*
