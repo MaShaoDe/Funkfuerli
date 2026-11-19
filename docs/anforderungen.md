@@ -1,5 +1,7 @@
 # Funkfüürli: Anforderungen (Stand 2026-11-15, Entwurf)
 
+> **Hinweis:** Massgebend ist die [Projektdefinition](projektdefinition.md). Dieses Dokument bleibt als Hintergrund mit Herleitung und Quellen. Bei Widersprüchen gilt die Projektdefinition.
+
 Was das Funkfüürli können muss. Die Technik dazu steht in [konzept.md](konzept.md). Wo die Anforderungen vom Konzept abweichen, steht es unter "Klärungsbedarf".
 
 ## 1. Gerät
