@@ -26,7 +26,8 @@ Status: **vorhanden** = laut [inventar.md](inventar.md) da. **Sortiment** = aus 
 | 1 | Klinkenkabel 3.5 mm beidseitig | 5b | Sortiment |
 | 1 | Schiebeschalter | 7 | beschaffen |
 | 1 | Taster | 5d | Sortiment |
-| 1 | Kopfhörer oder Aktivlautsprecher mit Line-Eingang | 4c | Sortiment, nur Zusatztest (Last am Chip prüfen) |
+| 1 | Aktivlautsprecher oder Stereoanlage mit Line-Eingang | 5d | Sortiment. Kopfhörer nie direkt an den Chip, siehe breadboard.md |
+| 1 | Kopfhörerverstärker-Testmodul mit TPA6132A2 | 5f | beschaffen, Bezugsquelle noch zu suchen (Chip nur im Gehäuse WQFN 3x3 mm) |
 
 ## 3. Empfang und Antennen
 
@@ -34,7 +35,7 @@ Status: **vorhanden** = laut [inventar.md](inventar.md) da. **Sortiment** = aus 
 |---|---|---|---|
 | 1 | Stiftleiste 1x9 und 2 Stück 1x2, 2.54 mm | 4a | Sortiment (J1, J2, J3 anlöten) |
 | 1 | Teleskopantenne mit Anschlusskabel oder Krokodilklemme | 4c, 4e | beschaffen |
-| 1 | Ferritstab MW, 180 bis 450 µH | 4d | beschaffen, Typ klären. AN383 nennt 8x50 mm (SL8X50MW70T) oder 4x30 mm (SL4X30MW100T) von Jiaxin |
+| 1 | Ferritstab MW, 8 x 50 mm, Mn-Zn (AN383: SL8X50MW70T, 70 Windungen, Hersteller Jiaxin, firstantenna.com) | 4d | beschaffen. Induktivität mit dem LCR-Messgerät prüfen, Soll 180 bis 450 µH. Ein passender Stab aus dem Sortiment geht auch |
 | 1 | Drahtantenne 5 bis 10 m (Litze) mit Krokodilklemme | 4e | Sortiment |
 
 KW-Zusatzschaltung für Test P5 (an J3), Schritt 4f:
@@ -50,7 +51,7 @@ KW-Zusatzschaltung für Test P5 (an J3), Schritt 4f:
 
 | Menge | Teil | Status |
 |---|---|---|
-| 1 | LDO 3.3 V, mindestens 500 mA, kleine Dropout-Spannung: Modul mit AP2112K-3.3 oder LF33CV (TO-220) | beschaffen, Datenblatt vor Bestellung prüfen |
+| 1 | LDO AP2112K-3.3 als Modul oder auf SOT-23-5-Adapterplatine | beschaffen. Entscheid nach Datenblatt. LF33CV nur als Notlösung |
 | 1 | Diode 1N5819 | Sortiment |
 | 1 | JST-Stecker für den LiPo | beschaffen, passend zur Zelle prüfen |
 | 1 | Ferritperle | Sortiment |
@@ -75,7 +76,8 @@ KW-Zusatzschaltung für Test P5 (an J3), Schritt 4f:
 |---|---|---|
 | 3 | 100 kΩ | Akku-Teiler (2), USB-Teiler oben (1) |
 | 1 | 150 kΩ | USB-Teiler unten |
-| 8 | 10 kΩ | Mischer Handy L und R (2), Mischer Radio L und R (2), Testton, NPN-Basis, PNP-Basis, Reserve |
+| 4 | 22 kΩ | Mischer Handy L und R (2), Mischer Radio L und R (2) |
+| 4 | 10 kΩ | Testton, NPN-Basis, PNP-Basis, Reserve |
 | 2 | 4.7 kΩ | I2C Pull-ups, nur wenn das Modul keine hat |
 | 4 | 1 kΩ | Testton-Teiler, Transistor-Basis, Transistor-Kollektor, LED |
 
@@ -92,10 +94,11 @@ Reserve: je 2 Stück der Werte. Wert des Backlight-Vorwiderstands nach Messung.
 
 ## Offen
 
-* LDO-Typ nach Datenblatt festlegen.
+* LDO: AP2112K-3.3 ist entschieden. Dropout-Kurve im Test 7d messen.
 * Display-Pinbelegung und Anschlussart prüfen.
 * Stecker der Zelle prüfen (103665 ohne Stecker).
-* Ferritstab-Typ festlegen.
+* Ferritstab: Typ SL8X50MW70T oder Stab aus dem Sortiment, Induktivität messen.
+* Kopfhörerverstärker-Testmodul (TPA6132A2): Bezugsquelle suchen oder Mini-Platine bestücken lassen.
 * Spule 4.7 µH mit ausreichender Güte beschaffen.
 
 *Copyright FerienBSD aka Marcel Sauder. Doku unter CC-BY-4.0.*

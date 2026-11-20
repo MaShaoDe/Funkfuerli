@@ -117,15 +117,15 @@ Beim N16R8 meiden (gegen Datenblatt prüfen): GPIO 0, 3, 45, 46 (Strapping), 19,
 * 14500 (800 mAh, 3.7 V) nur als Notfall- oder Reservezelle, Verwechslungsgefahr mit AA, deutlich kennzeichnen. 14650: Daten ungeprüft (O5).
 * Schutz: ungeschützte Zellen bekommen Schutz-IC mit Doppel-MOSFET. Verpolschutz mit Schottky-Diode (z.B. 1N5819) in der Lastleitung nach dem Akku (verliert ca. 0.3 V, messen). Pufferkondensator gegen Kontaktunterbrüche.
 * Laden über eine DC-Hohlsteckerbuchse, Aussendurchmesser 5.5 mm (Innendurchmesser offen), nur 5 V und 1 A, auf dem Gehäuse beschriftet. Am Eingang vor dem Lader: Überspannungsschutz, Filter und Glättung (Werte offen). Linearer Lader (TP4056-Typ mit Schutz). Laden und Hören nicht gleichzeitig, die Last wird beim Anstecken getrennt. Keine Schaltlader im Gerät. Solar und Autoadapter nur extern mit 5-V-Ausgang. Beim Flashen über USB (offen gehaltenes Gehäuse) kann das ESP32-Modul mit dem DC-Eingang gleichzeitig verbunden sein: Die Schaltung soll Rückspeisung in den LDO und in den Regler des ESP32-Moduls verhindern (Lösung offen, O22).
-* Versorgung: Akku, Ferrit und Kondensator, dann LDO 3.3 V (Kandidat LF33CV, mind. 500 mA, zu prüfen).
+* Versorgung: Akku, Ferrit und Kondensator, dann LDO 3.3 V. Vorschlag: **AP2112K-3.3** (Datenblatt Diodes: 600 mA, Dropout typisch 250 mV bei 600 mA, 55 µA Ruhestrom, 50 µV Rauschen, 65 dB Unterdrückung). Der ESP32-S3 braucht 3.0 bis 3.6 V und mindestens 500 mA Quelle (Espressif), der Si4732 2.7 bis 3.6 V. Der LDO regelt gerechnet bis Akku etwa 3.7 bis 3.9 V, darunter folgt der Ausgang dem Akku, der ESP32 hält bis Akku etwa 3.5 bis 3.6 V. Abschaltschwelle in der Firmware um 3.5 V, nach Breadboard-Test 7d festlegen. LF33CV (400 mV Dropout, 500 µA Ruhestrom) nur Notlösung.
 * Laufzeit grob 10 bis 25 Stunden (ca. 100 mA ohne Verstärker plus 50 bis 150 mA Verstärker, Schätzung, messen).
 * Solar nur extern oder als getrennter Ladevorgang.
 
 **T6 Audio.**
 1. Interner Lautsprecher Visaton K 50 (8 Ω, 2 W, 50 x 17 mm) in geschlossenem Resonanzraum im Gehäuse, am Gehäuse befestigt.
-2. 3.5-mm-Klinke (Kopfhörer, Line-Out), stereo direkt vom Si4732. Schaltkontakt trennt den Lautsprecher. Audio-Übertrager 1:1 gegen Brummschleifen als Option testen.
+2. 3.5-mm-Klinke (Kopfhörer, Line-Out). **Korrektur:** Der Si4732 liefert nur Line-Pegel (Datenblatt Si473x-B20: 80 mV eff typisch, Last mindestens 10 kΩ, höchstens 50 pF). Das Si4732-A10-Datenblatt in unseren Unterlagen nennt diese Werte nicht, sie sind zu messen. Kopfhörer direkt am Chip geht nicht (das Mikroe-Click nutzt deshalb einen LM4910). Entscheid (Vorschlag): Kopfhörerverstärker **TPA6132A2** auf dem Basisboard (Datenblatt TI: 2.3 bis 5.5 V, 2.1 mA, 25 mW an 16 Ω, ohne Ausgangskondensatoren, Verstärkung -6 / 0 / 3 / 6 dB, feste Maximalleistung unabhängig von der Versorgung, Gehäuse WQFN 3x3 mm, bei JLCPCB bestückbar). Der Schaltkontakt der Buchse geht an GPIO 6, die Firmware schaltet dann die PAM8403-Versorgung (GPIO 5) ab. Audio-Übertrager 1:1 gegen Brummschleifen als Option testen. Alternative TPA6139A2 (TSSOP-14) wurde verworfen: 25 mA Ruhestrom.
 
-Verstärker PAM8403 (HW-012, 20 Stück vorhanden), Class D, Betrieb ab ca. 2.5 V. Ausgänge BTL, Lautsprecher-Minus nie an Masse. Standby vermutlich nicht herausgeführt, dann Versorgung schalten. Mono ist Standard: zwei gleiche Widerstände mischen L und R, 3-poliger Jumper wählt Radio-L oder Mischer. Ausweichlösung bei MW-Störungen: LM386.
+Verstärker PAM8403 (HW-012, 20 Stück vorhanden), Class D, Vorschlag für den Lautsprecher. Datenblatt Diodes: 2.5 bis 5.5 V, 24 dB, an 8 Ω bei 1 % Klirr 0.72 W (3.6 V) und 0.45 W (3.2 V), Ruhestrom 10 mA bei 3.6 V. Ausgänge BTL, Lautsprecher-Minus nie an Masse. Der Chip hat einen Shutdown-Pin, am Modul ist er vermutlich nicht herausgeführt, darum wird die Versorgung geschaltet (GPIO 5). Der PAM8403 treibt keine Kopfhörer (BTL, kein Massebezug). Pegel: 80 mV Chip nach Mischer etwa 38 mV, nach Verstärker etwa 0.045 W am K 50 (Annahme Eingang 10 kΩ, messen). Mono ist Standard: zwei gleiche Widerstände (22 kΩ, damit die Chip-Last über 10 kΩ bleibt) mischen L und R, 3-poliger Jumper wählt Radio-L oder Mischer. Offen bleibt die Störung: Class D schaltet im Bereich der LW/MW-Oberwellen, Breadboard-Test 5e entscheidet. Ausweichlösung bei MW-Störungen: LM386 oder Linearverstärker.
 
 **T7 Störarmes Design.** Erfahrung: Solarregler (MPPT) am gleichen Akku im gleichen Gehäuse verschlechterte den Empfang deutlich, Oberwellen der Schaltwandler fallen in MW und KW. Regeln:
 1. Laden oder hören, nicht beides. Linearer Lader statt Schaltregler.
@@ -169,10 +169,10 @@ Autor und Copyright: `FerienBSD aka Marcel Sauder`.
 | O3 | RX-Board Rev A: Lieferung abwarten. Rev A hat kein KW, Rev B (mit KW über AMI, Umschalter) nötig. KW-Test erst mit Rev B | in Fertigung |
 | O4 | Display 2.0" ST7789V: Pins, Stiftleiste, Anpassung von Auflösung und Layout im Fork | offen |
 | O5 | Akku: Kapazität 18650 und 14500 messen, Aufdrucke LiPo-Schutz lesen, 14650 aufnehmen oder streichen, JST und Verpolschutz, Vergleich im Prototyp | offen |
-| O6 | LDO-Typ prüfen (LF33CV, mind. 500 mA), ESP32-Einspeisung 3.3 V bestätigen | offen |
-| O7 | Verstärker: Pegel, Eingangsimpedanz, Standby. Resonanzraum K 50. Lautsprecher-Box (Ohm, Watt, Masse). Lautstärke per Poti (A) oder Software (B) | offen |
-| O9 | KW-Umschalter in Rev B (FM: Teleskop an FMI, MW/LW: Ferritstab an AMI sind auf dem RX-Board gelöst) | offen |
-| O10 | Stückliste (BOM) vervollständigen, Blockschaltbild aktualisieren, Verdrahtungsplan für den Breadboard-Test erstellen | offen, vor Breadboard-Test |
+| O6 | LDO: AP2112K-3.3 vorgeschlagen. Offen: Dropout-Kurve und Abschaltschwelle im Breadboard-Test 7d, ESP32-Einspeisung am 3V3-Pin bestätigen | Vorschlag, Messung offen |
+| O7 | Verstärker: PAM8403 als Vorschlag. Offen: Eingangswiderstand HW-012 messen, MW-Störung (Test 5e), Resonanzraum K 50, Lautsprecher-Box (Ohm, Watt, Masse), Lautstärke per Poti (A) oder Software (B). Lautstärkebegrenzung für Kopfhörer: TPA6132A2 hat feste Maximalleistung, Verstärkung wählen | offen |
+| O9 | Ferritstab: SL8X50MW70T (8 x 50 mm, AN383) oder Stab aus dem Sortiment mit 180 bis 450 µH, Induktivität messen. FM an FMI, MW/LW an AMI. KW-Eingang (FMI oder AMI) offen bis Rev-A-Test P4 und P5, danach KW-Umschalter in Rev B | Vorschlag, KW offen |
+| O10 | Stückliste (BOM), Blockschaltbild und Verdrahtungsplan für den Breadboard-Test | erledigt (docs/bom-breadboard.md, docs/breadboard.md) |
 | O12 | Lizenzfrage L2 beim Maintainer klären | offen |
 | O13 | Was bringt der Fork an Watchdog und Neustart mit (F15) | offen |
 | O14 | Kleber festlegen (T10) | offen |
@@ -183,6 +183,7 @@ Autor und Copyright: `FerienBSD aka Marcel Sauder`.
 | O20 | Drucker und Bauraum im Club und FabLab, CAD-Werkzeug | offen |
 | O21 | Namensprüfung (Swissreg/IGE und GitHub) vor Veröffentlichung | offen |
 | O22 | OTA statt USB-Anschluss am Gehäuse prüfen (Vorschlag): Kann der ATS-Mini-Fork OTA, Speicherbedarf für 2 Firmware-Abbilder, WLAN nur zum Update einschalten (F10), Vorschlag: per Menüeintrag Update mit dem Encoder, Sicherheit des Updates. Wenn OTA nicht geht: USB-Weg (Gehäuseöffnung mit Stopfen oder Einbaubuchse nur mit D+, D- und GND). Rückspeisung bei USB und DC-Eingang gleichzeitig: Lösung offen (z.B. Schottky-Diode hinter dem LDO, Spannungsabfall ca. 0.3 V, LDO-Typ auf Rückstrom prüfen) | offen |
+| O23 | Kopfhörerverstärker TPA6132A2: Testmodul oder Mini-Platine für den Lochraster-Test beschaffen (Chip nur WQFN 3x3, ohne Heissluft nicht von Hand lötbar, Fab Lab oder Funkclub). Datenblatt-Details (Beschaltung, Verstärkung) vor dem Layout im Basisboard prüfen | offen |
 
 ## 7. Quellen
 
