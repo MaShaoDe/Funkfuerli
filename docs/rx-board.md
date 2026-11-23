@@ -1,158 +1,30 @@
-# RX-Board: Empfänger-Baugruppe (Stand 2026-11-15, Entwurf)
+<!-- SPDX-License-Identifier: CC-BY-4.0 -->
+<!-- Copyright 2026 FerienBSD aka Marcel Sauder -->
 
-Das RX-Board ist die Empfänger-Baugruppe des Funkfüürli. Es steckt auf der Hauptplatine und enthält den Empfängerchip Si4732 mit seiner Beschaltung. Die Kinder löten nur die Stiftleisten, das Board kommt bestückt aus der Fertigung.
+# RX-Board im Funkfüürli
 
-Einordnung im Gerät: [blockschaltbild.md](blockschaltbild.md). Pins der Hauptplatine: [pinplan.md](pinplan.md).
+Alle Details zum RX-Board (Schaltung, Pinbelegung von J1, J2, J3, Testpunkte, Stückliste, Tests) stehen im Repo [RX-Board-Si4732](https://github.com/MaShaoDe/RX-Board-Si4732), dort vor allem in [docs/rx-board.md](https://github.com/MaShaoDe/RX-Board-Si4732/blob/main/docs/rx-board.md). Diese Seite beschreibt nur die Rolle im Funkfüürli und die Verdrahtung mit der Hauptplatine.
 
-## 1. Aufgabe
+## Aufgabe im Gerät
 
-Das RX-Board nimmt das Antennensignal auf, wählt einen Sender (Abstimmung), demoduliert ihn (UKW, MW, KW) und gibt das Tonsignal links und rechts aus. Der Si4732 macht Tuner, Demodulator und Stereodecoder in einem Chip. Er ist kein SDR und liefert keine Rohdaten (siehe [konzept.md](konzept.md)).
+Das RX-Board ist der Empfänger: Antennensignal rein, Ton links und rechts raus, Steuerung per I2C. Es steckt über J1 auf der Hauptplatine (Projektdefinition T1, T8).
 
-```
-Antenne  ->  RX-Board  ->  Ton (L, R)  ->  Verstärker / Klinke
-                ^
-        Steuerung (ESP32) über I2C
-```
+## Verdrahtung mit der Hauptplatine
 
-## 2. Entscheid
+| RX-Board-Signal | Ziel im Funkfüürli |
+|---|---|
+| AUDIO_L, AUDIO_R | Verstärker PAM8403 und Klinke (Mono über zwei gleiche Widerstände, Jumper Mono/Stereo) |
+| 3V3 | 3.3 V aus dem LDO, nie Akku oder 5 V |
+| GND (zwei Pins) | Masse |
+| SDA, SCL | I2C des ESP32-S3, GPIO 8 und 9 |
+| RST | GPIO 7 |
+| INT | offen, nur bei Bedarf der Firmware |
 
-* Eigenes Board statt fertigem Mikroe AM/FM 2 Click (2026-11-15). Der Click passt nicht zu unserem Pinplan und bringt einen Kopfhörerverstärker mit, den wir nicht brauchen.
-* Kinder löten kein SMD. Das RX-Board wird komplett bestückt bestellt (PCBA bei JLCPCB), die Kinder löten nur Stiftleisten.
-* Der Chip, der Quarz und die Kondensatoren müssen deshalb in der Fertigungsbibliothek des Herstellers lieferbar sein. Das wird beim Entwurf je Bauteil geprüft.
-* Vorlage für die Beschaltung: offene Schaltpläne der PU2CLR-Bibliothek (MIT) und das Datenblatt des Si4732-A10. Nichts von Sunnygold (CC BY-NC-SA) und nichts von den Umbaumodulen für UV-K5/K6.
+Welcher J1-Pin welches Signal führt, steht im RX-Board-Repo. Die Buchsenleiste der Hauptplatine muss dieser Reihenfolge folgen, Pin 1 ist markiert.
 
-## 3. Schnittstelle zur Hauptplatine
+## Antennen
 
-Die Belegung der Stiftleiste wird nach dem Pinplan der Hauptplatine festgelegt (Abschnitt 7). Geplant sind diese Signale:
-
-| Signal | Richtung | Bemerkung |
-|---|---|---|
-| 3.3 V | Eingang | Versorgung, Chip arbeitet laut Datenblatt mit 2.7 bis 3.6 V. Aus dem LDO, nie direkt vom Akku |
-| GND | | Masse, mehrere Pins |
-| SDA, SCL | Ein/Aus | I2C zur Steuerung (Pinplan: GPIO 8 und 9) |
-| RST | Eingang | Reset (Pinplan: GPIO 7) |
-| Audio L, Audio R | Ausgang | Analoges Tonsignal, weiter an Verstärker und Klinke |
-| Antenne FM/SW | Eingang | Teleskopantenne oder BNC |
-| Antenne AM/LW | Eingang | Ferritstab |
-| Interrupt (optional) | Ausgang | Nur wenn die Firmware ihn braucht |
-
-Welche Antenne an welchen Eingang gehört: Laut Blockschaltbild des Datenblatts gibt es einen Eingang "AM / LW ANT" und einen Eingang "FM / SW ANT". Das Teleskop kommt an FM/SW, der Ferritstab an AM/LW.
-
-## 4. Anforderungen
-
-Qualität und Haltbarkeit haben Vorrang vor Grösse. Wenn eine enge Bestückung nicht sicher ist, wird grosszügiger gebaut.
-
-**Grundlagen** (aus [anforderungen.md](anforderungen.md)): wenig Strom, gute Empfangsqualität, einfache Handhabung, robust.
-
-**Mechanik und Robustheit**
-* Passive Bauteile in Grösse 0805, keine kleineren. Grosszügige Abstände zwischen den Teilen, mehr als das Minimum des Herstellers. Der Chip im SOIC-16-Gehäuse bleibt, das ist gross genug.
-* Stiftleisten im Raster 2.54 mm, steckbar und tauschbar.
-* 2 Befestigungslöcher. Das Board wird im Gehäuse gehalten, die Stiftleiste trägt nur die Elektrik (Konzept Abschnitt 11, Falltest aus 1 m).
-* Kleiner als der Mikroe-Click (57.15 x 25.4 mm), genaue Masse nach dem Layout.
-
-**Schutz vor Fehlern**
-* Pin 1 deutlich markiert, die Stiftleiste so gelegt, dass das Board nur in einer Richtung passt (Kodierung).
-* Der Chip arbeitet laut Datenblatt mit 2.7 bis 3.6 V. Die Versorgung kommt nur aus dem LDO, nie direkt vom Akku oder aus 5 V. Absolute Maximalwerte im Datenblatt nachsehen.
-* Schutz der Antenneneingänge gegen statische Aufladung (SMD, auf dem Board).
-
-**Platine und Lack**
-* 1.6 mm FR4, 2 Lagen, Oberfläche ENIG (flach, korrosionsfest, gut für feine Lötpads).
-* Lötstopplack matt, dunkel. Weisser Siebdruck darauf. Zusätzlicher Schutzlack ist optional und kommt erst nach dem Test, weil er Antenneneingänge und Quarz leicht verstimmen kann. Stiftleisten und Pads bleiben frei.
-
-**Beschriftung** (alles auf dem Board beschriftet)
-* Bauteilnamen (R1, C1, U1, X1) und Pin-Namen an den Stiftleisten.
-* Antennenanschlüsse (FM/SW, AM/LW), "RX", Version (Rev A) und Jahr, Feld für die Seriennummer.
-* Beschriftete Testpunkte für 3.3 V, GND, SDA, SCL, Audio links und rechts, Reset.
-* `Copyright 2026 FerienBSD aka Marcel Sauder`, Link `github.com/MaShaoDe/Funkfuerli` und `CERN-OHL-P-2.0`.
-* Kein Rufzeichen auf dem Board, nur Copyright (Entscheid 2026-11-15).
-* Mindestgrösse von Schrift und Linien beim Hersteller vor der Bestellung prüfen.
-
-**Elektrik und Störungen**
-* Kein Schaltregler auf dem Board, Versorgung nur über Kondensatoren (Entkopplung).
-* Kurze Leitungen zu den Antenneneingängen, durchgehende Massefläche, Quarz nahe am Chip, Abstand zu ESP32, Display und Verstärker.
-
-**Qualitätssicherung**
-* Jedes Board wird vor dem Kurs geprüft: Ein kleines Testprogramm liest den Chip aus und stimmt einen Sender ab.
-* Mehr Boards bestellen, als der Kurs braucht (Mindestmenge meist 5), als Reserve.
-* Zwei Revisionen einplanen: Rev A zum Testen, Rev B mit den Korrekturen für den Kurs.
-* DRC in KiCad und die Herstellerprüfung der Bestückungsdaten (Drehung der Bauteile) vor der Bestellung.
-
-## 4a. Si4732-A10-GS: geprüfte Pinbelegung (SOIC-16)
-
-Quellen: Datenblatt-Kurzfassung Silicon Labs (2013) und Skyworks (2021), beide gleich. Gegengelesen mit dem Mikroe-Schaltplan "AM/FM 2 Click v100". Die frühere Tabelle aus der PU2CLR-Vorlage (Gedächtnis) war falsch und ist ersetzt.
-
-| Pin | Name | Funktion | Auf dem RX-Board |
-|---|---|---|---|
-| 1 | LOUT/DFS | Audio links | Ausgang, 470 nF Koppelkondensator |
-| 2 | GPO3/DCLK | General Purpose Out 3 / Takt | Quarz (OSC-OUT), 22 pF nach GND |
-| 3 | GPO2/INTB | General Purpose Out 2 / Interrupt | offen lassen oder optional zur Stiftleiste (muss beim Reset low sein) |
-| 4 | GPO1 | General Purpose Out 1 | unbeschaltet (interner Pull-up, muss beim Reset high sein) |
-| 5 | NC | nicht belegt | unbeschaltet |
-| 6 | FMI | FM/SW Antenneneingang | Teleskop, ESD-Schutz |
-| 7 | RFGND | HF-Masse | an GND |
-| 8 | AMI | AM/LW Antenneneingang | Ferritstab, ESD-Schutz |
-| 9 | RST | Reset, aktiv low | Pull-up 4.7 kΩ, von ESP32 |
-| 10 | SENB | Adresswahl I2C | fest verdrahtet (siehe unten) |
-| 11 | SCLK | I2C Takt | Pull-up 4.7 kΩ |
-| 12 | SDIO | I2C Daten | Pull-up 4.7 kΩ |
-| 13 | RCLK | Referenztakt | Quarz (OSC-IN), 22 pF nach GND |
-| 14 | VDD | 2.7 bis 3.6 V | 3.3 V, 100 nF und 1 µF |
-| 15 | GND | Masse | GND |
-| 16 | ROUT/DOUT | Audio rechts | Ausgang, 470 nF Koppelkondensator |
-
-Gehäuse: Rastermass 1.27 mm, Körper 3.90 x 9.90 mm (JEDEC MS-012). Temperaturbereich –20 bis 85 °C.
-
-## 4b. Beschaltung (Werte aus dem Mikroe-Schaltplan, Startwerte)
-
-Das Layout wird nach Schaltplan und Datenblatt gezeichnet. Die Werte unten sind Startwerte und werden im Labortest geprüft.
-
-* Quarz 32.768 kHz zwischen Pin 2 und Pin 13, je 22 pF nach GND.
-* I2C und Reset: Pull-ups 4.7 kΩ nach 3.3 V.
-* Versorgung: 100 nF und 1 µF direkt an Pin 14.
-* Adresse (AN332, Abschnitt 6.1): SENB = GND ergibt 7-Bit-Adresse 0x11 (Schreiben 0x22), SENB = 3.3 V ergibt 0x63 (Schreiben 0xC6). Wir legen SENB fest auf GND (Adresse 0x11). Beim Mikroe-Click ist es per Jumper wählbar.
-* Audio: je 470 nF in Reihe pro Kanal, dazu 20 kΩ Widerstände.
-* FM-Pfad: 1 nF, 100 pF, 270 nH, 100 nF und Schutzdioden BAV99.
-* AM-Pfad: 470 nF in Reihe, Ferritstab an Pin 8, Dioden BAV99 als Schutz.
-* Der Kopfhörerverstärker (LM4910) des Mikroe-Clicks entfällt. Das Tonsignal geht auf die Stiftleiste.
-* Bus-Modus (AN332, Abschnitt 6): Der Chip wählt den Modus beim Reset über GPO1 und GPO2. Intern ziehen 1 MΩ Widerstände GPO1 hoch und GPO2 tief, das ergibt I2C (2-Wire). Darum bleiben GPO1 und GPO2 auf dem Board unbeschaltet.
-* Start (AN332): Quarzbetrieb braucht beim Befehl POWER_UP XOSCEN = 1 und OPMODE = 0x05 (analoger Ausgang). Danach mindestens 500 ms warten, bis der erste Abstimmbefehl kommt. Zum Chip-Test gibt POWER_UP mit FUNC = 15 die Teilenummer zurück.
-* Die genaue Verschaltung (welcher Wert in welcher Leitung) wird aus dem Schaltplan gezeichnet, nicht aus dieser Liste. Die Ferritantenne (Induktivität) ist noch festzulegen.
-
-## 5. Bestückung
-
-* Chip: Si4732-A10-GS im 16-poligen SOIC-Gehäuse.
-* Quarz: 32.768 kHz (bestätigt durch den Mikroe-Schaltplan).
-* Entkopplung und Lastkondensatoren: Werte aus Abschnitt 4b.
-* Alles SMD, bestückt vom Hersteller. Von Hand gelötet werden nur die Stiftleisten.
-* Mindestmenge: Platinen meist 5 Stück, bei der Bestückung vor der Bestellung im Angebot prüfen.
-
-## 6. Test
-
-* Vergleich: Empfang UKW, MW, KW mit Teleskop und Drahtantenne.
-* Stromaufnahme im Betrieb messen.
-* Störtest nach Konzept Abschnitt 8.
-* Zuerst auf dem Breadboard mit Kabeln (Stufe 1 in [prototyp.md](prototyp.md)).
-
-## 7. Offene Punkte
-
-1. Vollständiges Datenblatt des Si4732-A10: Es gibt öffentlich nur das 3-seitige Data Short. AN332 (Programming Guide) liegt vor und liefert Adresse, Bus-Modus und Start. Es fehlen weiter Applikationsschaltung mit Werten, Maximalwerte und Layout-Hinweise. Pinbelegung ist geprüft (Abschnitt 4a), die Werte in 4b sind Startwerte aus dem Mikroe-Schaltplan.
-2. Erledigt: Mikroe-Schaltplan gegengelesen (Abschnitt 4a und 4b).
-3. Antennenanschluss des Ferritstabs: Anzapfung und Induktivität nach Datenblatt.
-4. Schutz der Antenneneingänge gegen statische Aufladung (SMD, auf dem Board).
-5. Verfügbarkeit von Chip, Quarz und Kondensatoren beim Hersteller, Angebot einholen.
-6. Lizenzdatei der PU2CLR-Bibliothek einsehen, Autor in der Doku nennen.
-7. Eigenes Repo für das RX-Board: `RX-Board-Si4732` ist angelegt (2026-11-15). Zugriff und erster Push stehen aus, bis dahin liegt die Doku hier.
-
-## 8. Erklärt für Laien
-
-**Das Ohr des Radios.**
-
-Stell dir den Himmel voller Radiowellen vor, wie ein Meer voller Wellen. Alle Sender funken gleichzeitig, durcheinander. Die Antenne ist wie ein Netz: Sie fängt alles auf einmal. Aber ein Netz voller Wellen gibt noch keinen Ton.
-
-Dafür gibt es das RX-Board. Es ist der Sortierer. Du drehst am Knopf, und das RX-Board pickt genau den einen Sender heraus, den du willst. Alle anderen lässt es draussen. Dann übersetzt es die Welle in Töne, die der Lautsprecher abspielen kann.
-
-Im Herzen des Boards sitzt ein kleiner Chip, kleiner als ein Fingernagel. Er rechnet sehr schnell und macht dabei alles, was früher ein ganzer Schrank voller Bauteile gebraucht hat. Weil er so winzig ist, bestücken wir ihn nicht von Hand. Das macht eine Maschine. Du lötest nur die Stifte an, mit denen das Board in das Radio gesteckt wird.
-
-Das RX-Board ist also: das Ohr, das alles hört, und der Kopf, der den richtigen Sender findet.
-
-*Copyright FerienBSD aka Marcel Sauder. Doku unter CC-BY-4.0.*
+* J2: Teleskopantenne (UKW), über BNC am Gehäuse und dünnes 50-Ohm-Koax (Projektdefinition T4).
+* J3: Ferritstab für MW und LW.
+* Die Antennen gehen direkt an das RX-Board, nicht über die Hauptplatine.
+* Ferritstab und Antennenleitungen möglichst weit weg von ESP32, Display und Verstärker.

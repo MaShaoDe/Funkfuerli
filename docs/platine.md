@@ -9,7 +9,7 @@ Anforderungen und Entscheide für die eigene Platine (Stufe 3 des Prototyps, sie
 | 1 | Der ESP32 wird über einen LDO am Pin 3V3 des DevKits gespeist (kein 5-V-Boost, kein Schaltregler). Der LDO muss die WLAN-Spitzen liefern (mindestens 500 mA) und eine kleine Dropout-Spannung haben, weil der Akku bis 3.0 V entladen wird und die Schottky-Diode etwa 0.3 V kostet. Der MCP1700 (250 mA) reicht nicht. Kandidat: LF33CV (TO-220), Datenblatt vor der Wahl prüfen. |
 | 2 | Akku: Lötpads für einen 14650-Halter (1 Zelle, Masse laut Angabe 77.1 x 20.65 x 14.9 mm) und ein JST-Stecker für den LiPo 103665. Es wird nur einer bestückt. |
 | 3 | TP4056-Lader und PAM8403 (HW-012) bleiben fertige Module auf Stiftleisten. Die Kinder löten Stiftleisten und Buchsen. |
-| 4 | RX-Board gesteckt über J1 (1x9), Pinbelegung siehe [rx-board.md](rx-board.md). |
+| 4 | RX-Board gesteckt über J1 (1x9), Pinbelegung siehe [RX-Board-Repo](https://github.com/MaShaoDe/RX-Board-Si4732/blob/main/docs/rx-board.md). |
 
 ## ESP32-S3-DevKitC-1 (Foto vom Modul geprüft)
 

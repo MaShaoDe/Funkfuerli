@@ -1,6 +1,6 @@
 # Funkfüürli: Blockschaltbild (Stand 2026-11-19, Entwurf)
 
-Grober Aufbau. Der Empfänger ist im Repo [RX-Board-Si4732](https://github.com/MaShaoDe/RX-Board-Si4732) beschrieben (Kopie: [rx-board.md](rx-board.md)). Die Pins stehen in [pinplan.md](pinplan.md), die Gründe in [konzept.md](konzept.md). Die Basisplatine entsteht im Repo [Funkbasis-ESP32](https://github.com/MaShaoDe/Funkbasis-ESP32). Auf dem RX-Board Rev A liegt UKW am Eingang FMI (J2), MW und LW am Eingang AMI (J3). Der KW-Eingang ist offen und wird mit Rev A getestet.
+Grober Aufbau. Der Empfänger ist im Repo [RX-Board-Si4732](https://github.com/MaShaoDe/RX-Board-Si4732) beschrieben (Verdrahtung im Gerät: [rx-board.md](rx-board.md)). Die Pins stehen in [pinplan.md](pinplan.md), die Gründe in [konzept.md](konzept.md). Die Basisplatine entsteht im Repo [Funkbasis-ESP32](https://github.com/MaShaoDe/Funkbasis-ESP32). Auf dem RX-Board Rev A liegt UKW am Eingang FMI (J2), MW und LW am Eingang AMI (J3). Der KW-Eingang ist offen und wird mit Rev A getestet.
 
 ## Gesamt
 
