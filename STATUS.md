@@ -2,22 +2,24 @@
 
 Höchstens 30 Zeilen. Immer überschreiben, nicht anhängen. Erledigtes streichen.
 
-Massgebend ist die [Projektdefinition](docs/projektdefinition.md) (Funktionen, Anforderungen, Technik, Offene Punkte O1 ff.).
+Massgebend ist die [Projektdefinition](docs/projektdefinition.md) (Funktionen, Anforderungen, Technik, Offene Punkte O1 ff.). Prototyp: [Cookbook](docs/cookbook-prototyp.md). RX-Board: Repo RX-Board-Si4732 ist die Wahrheit, hier nur [Verweis](docs/rx-board.md).
 
-## Stand (2026-11-20)
-- Projektdefinition im Review (PR 27), Kapitel bis T7 gelesen, weiter ab T7. Nur Funkfüürli selbst, nichts zu Kurs oder anderen Projekten.
-- Neu eingetragen als Vorschlag oder offen: Reparierbarkeit (H6, C4), BNC-Antenne, DC-Buchse 5 V mit Eingangsschutz, Flashen per OTA statt USB am Gehäuse (O22), Gehäusehöhe offen.
-- RX-Board Rev A ist bestellt, Lieferung steht aus. Rev A hat keinen KW-Zweig.
+## Stand (2026-11-25)
+- Projektdefinition im Review, gelesen bis T7, weiter ab T7. Nur Funkfüürli selbst.
+- Neu: Sendersuche F16 bis F18, Flashen per OTA als Vorschlag (O22), Reparierbarkeit, BNC, DC-Buchse 5 V.
+- RX-Board Rev A ist angekommen, noch nicht getestet. Stiftleisten J1, J2, J3 anzulöten.
+- Cookbook Prototyp mit BOM (1 Gerät) liegt vor, Version v0.1-1. Viele BOM-Felder stehen als `____`.
 - Noch keine KiCad-Datei der Basisplatine, keine eigene Firmware, kein Gehäuse.
 
 ## Als Nächstes
-- Marcel: PR 27 mergen, Review ab T7 fortsetzen.
-- Lautsprecher: Typ und Anzahl (1 oder 2) offen, T6 Punkt 1 nennt noch den Visaton K 50 (ungeprüft).
-- O22: OTA prüfen (Fork, Speicher, WLAN nur zum Update per Menüeintrag), Rückspeisung bei USB und DC-Eingang.
-- Weitere Bluetooth- und Kurs-Reste in anderen Dokumenten (README, Anforderungen, Stückliste, Pinplan) bereinigen, eigener PR, offen.
-- Rev-A-Tests P1 bis P9, danach Entscheid KW-Eingang, Rev B, Basisboard.
+- Rev-A-Tests nach Cookbook Schritt 4 (UKW, MW, KW über J2 P4 und J3 P5, RDS).
+- BOM im Cookbook ausfüllen (`____`), Display-Pinbelegung, Teleskopantenne, Lautsprecher (Typ, Anzahl), Zellenstecker.
+- Pinplan gegen Cookbook abgleichen.
+- O22: Partitionsgrössen des Fork prüfen (16 MB für 2 Firmware-Plätze), OTA-Menü.
+- O24: Fork-Suchlauf und Senderliste prüfen, Kriterien Pegel, SNR, RDS.
+- Review Projektdefinition ab T7 fortsetzen.
 
 ## Stolpersteine
-- Teleskopantenne (Typ, Länge), DC-Buchse (Innendurchmesser) noch nicht bestimmt.
 - KW-Eingang des Si4732 (FMI oder AMI) ist aus den Unterlagen nicht eindeutig.
-- UKW der SRG: Wiederinbetriebnahme ab Mitte November 2026, politisch unsicher.
+- Rückspeisung bei USB und DC-Eingang gleichzeitig: Lösung offen (O22).
+- Alte Branches lassen sich aus der Sitzung nicht löschen, von Hand in GitHub.
