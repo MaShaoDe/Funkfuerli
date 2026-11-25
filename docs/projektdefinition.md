@@ -37,6 +37,9 @@ Priorität: **M** = muss (erster Prototyp), **S** = soll, **K** = kann. Quelle: 
 | F7 | Lautstärke mit Begrenzung (Kopfhörer) | M | neu | Poti am Modul oder Software, siehe O7 |
 | F8 | Einfachmodus: 3 Bänder, wenige Tasten | S | neu | |
 | F10 | WLAN nur zum Firmware-Update eingeschaltet, sonst aus. BLE aus | S | neu | Stör- und Stromgründe (T7) |
+| F16 | Sendersuche UKW: Suchlauf findet die empfangbaren Sender und legt sie als Liste ab. Beim Drehen erscheinen zuerst nur diese | M | neu | Suche regelmässig wiederholbar, Vorschlag |
+| F17 | Sendersuche MW und KW: gespeichert wird nur, was Pegel und Signalqualität (Signal-Rausch-Verhältnis) erfüllt und wie ein Sender aussieht. Beim Drehen erscheinen zuerst nur diese | M | neu | Schwellen und Erkennung offen (O24), Vorschlag |
+| F18 | Freier Suchlauf als wählbare Option (UKW, MW, KW) | C | neu | zweitrangig |
 | F15 | Watchdog, Brown-out, Neustart mit letzter Frequenz | S | Fork? | prüfen, was der Fork mitbringt (O13) |
 
 ## 3. Anforderungen
@@ -184,6 +187,7 @@ Autor und Copyright: `FerienBSD aka Marcel Sauder`.
 | O21 | Namensprüfung (Swissreg/IGE und GitHub) vor Veröffentlichung | offen |
 | O22 | OTA statt USB-Anschluss am Gehäuse prüfen (Vorschlag): Der ATS-Mini-Fork kann OTA laut Doku (Menü Settings, Update FW, oder Web-Interface, manueller Upload ohne Internet möglich, WLAN standardmässig aus). Offen: Speicherbedarf für 2 Firmware-Abbilder (Partitionstabelle des Fork prüfen, 8 Zeilen, Grössen nicht gelesen), WLAN nur zum Update einschalten (F10), Vorschlag: per Menüeintrag Update mit dem Encoder, Sicherheit des Updates. Bei einem Fehlschlag verlangt der Fork teils USB. Wenn OTA nicht geht: USB-Weg (Gehäuseöffnung mit Stopfen oder Einbaubuchse nur mit D+, D- und GND). Rückspeisung bei USB und DC-Eingang gleichzeitig: Lösung offen (z.B. Schottky-Diode hinter dem LDO, Spannungsabfall ca. 0.3 V, LDO-Typ auf Rückstrom prüfen) | offen |
 | O23 | Kopfhörerverstärker TPA6132A2: Testmodul oder Mini-Platine für den Lochraster-Test beschaffen (Chip nur WQFN 3x3, ohne Heissluft nicht von Hand lötbar, Fab Lab oder Funkclub). Datenblatt-Details (Beschaltung, Verstärkung) vor dem Layout im Basisboard prüfen | offen |
+| O24 | Sendersuche (F16 bis F18): Kann der Fork Suchlauf und Senderliste schon (Release-Notes nennen Seek und Scan)? Kriterien für "ist ein Sender": Pegel, Signal-Rausch-Verhältnis, stabiler Träger (Werte aus dem Chip prüfen), bei UKW zusätzlich RDS. Erkennung von Radar oder Störsendern nur über solche Messwerte, eine Mustererkennung im Ton ist nicht vorgesehen. Wie oft neu suchen, Dauer, Stromverbrauch | offen |
 
 ## 7. Quellen
 
