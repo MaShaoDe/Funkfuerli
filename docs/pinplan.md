@@ -1,4 +1,4 @@
-# Funkfüürli: Pinplan (Stand 2026-11-15, Entwurf)
+# Funkfüürli: Pinplan (Stand 2026-11-25, Entwurf)
 
 Pinplan für das ESP32-S3-DevKitC-1 (N16R8). Er ist auf die strengste Variante ausgelegt und noch nicht gegen das Datenblatt und den Schaltplan des vorhandenen Moduls geprüft (siehe "Vor dem Layout prüfen"). Das Blockschaltbild steht in [blockschaltbild.md](blockschaltbild.md).
 
@@ -7,7 +7,7 @@ Pinplan für das ESP32-S3-DevKitC-1 (N16R8). Er ist auf die strengste Variante a
 | GPIO | Funktion | Signal | Bemerkung |
 |---|---|---|---|
 | 8 | I2C | SDA zum Si4732 | Standard-Pin von Wire beim S3 |
-| 9 | I2C | SCL zum Si4732 | Pull-ups prüfen (Modul oder Platine) |
+| 9 | I2C | SCL zum Si4732 | Pull-ups 4.7 kΩ liegen auf dem RX-Board, keine externen |
 | 7 | Si4732 | RESET | |
 | 10 | Display SPI | CS | FSPI-Pins, schnell |
 | 11 | Display SPI | MOSI (SDA am Display) | |
@@ -28,9 +28,29 @@ Pinplan für das ESP32-S3-DevKitC-1 (N16R8). Er ist auf die strengste Variante a
 
 Das sind 19 Pins. Die Schätzung im Konzept lag bei etwa 17, weil Display (6) und Lader (3) genauer gezählt sind.
 
+## RX-Board Rev A: Stiftleiste J1
+
+Die Reihenfolge von J1 (1x9, Pin 1 quadratisch) steht im Repo [RX-Board-Si4732](https://github.com/MaShaoDe/RX-Board-Si4732), `docs/rx-board.md` Abschnitt 4e. Dieses Repo ist die Quelle, hier steht nur die Zuordnung zu den GPIO. Der Pinplan folgt dieser Reihenfolge (Buchsenleiste 1x9).
+
+| J1 Pin | Signal | ESP32 oder Ziel | Bemerkung |
+|---|---|---|---|
+| 1 | AUDIO_L | Audiopfad (Verstärker, Klinke) | Kein GPIO |
+| 2 | AUDIO_R | Audiopfad (Verstärker, Klinke) | Kein GPIO |
+| 3 | GND | GND | |
+| 4 | 3V3 | LDO der Hauptplatine | Nur 3.3 V, nie Akku oder 5 V |
+| 5 | SDA | GPIO 8 | |
+| 6 | SCL | GPIO 9 | |
+| 7 | RST | GPIO 7 | |
+| 8 | INT | offen | Optional (GPO2/INTB), kein GPIO zugeteilt |
+| 9 | GND | GND | |
+
+Die Antennenanschlüsse J2 und J3 und die Testpunkte stehen nur im RX-Board-Repo.
+
 ## Reserve (frei nutzbar)
 
 15, 18, 38, 39, 47, 48.
+
+* GPIO 15: Das Cookbook Prototyp nutzt ihn als Testton und nennt ihn "I2S-Reserve des Basisboards". Diese Zuteilung ist offen, im Pinplan noch nicht entschieden.
 
 * GPIO 48 (Modul v1.0) und GPIO 38 (Modul v1.1) hängen an der RGB-LED des DevKits. Nur nutzen, wenn die LED stört, nicht.
 * Mögliche Verwendung: zweiter Ladestatus (STDBY), Notfall-Extras, Statusled.
@@ -50,7 +70,7 @@ Das sind 19 Pins. Die Schätzung im Konzept lag bei etwa 17, weil Display (6) un
 1. Pinbelegung der Stiftleisten am vorhandenen Modul gegen den Schaltplan des Herstellers. Clones unterscheiden sich.
 2. Pins des ATS-Mini-Forks im Quelltext (`esp32-si4732/ats-mini`) mit diesem Plan vergleichen. Wo der Fork andere Pins nutzt, entweder Plan anpassen oder im Fork die Pindefinitionen ändern. Der Fork zielt auf ein Display mit 320x170, hier kommt ein 2.0"-TFT mit 240x320 und ST7789V.
 3. Pins des 2.0"-TFT am vorhandenen Modul (Beschriftung, Stiftleiste, Backlight-Strom).
-4. Si4732-Modul: I2C-Adresse (SEN-Pin), Pull-ups, Pegel und Anschlüsse laut Datenblatt.
+4. RX-Board Rev A: I2C-Adresse 0x11 (SENB fest auf GND), Pull-ups und Pegel im Test nach Cookbook Schritt 4 bestätigen. Ergebnis zurück in diesen Plan.
 5. Schaltung für die Verstärker-Versorgung (GPIO 5): THT-Bauteil, das mit 3.3 V sicher schaltet.
 6. USB-Erkennung (GPIO 17): Spannungsteiler so wählen, dass 5 V nie auf den Pin gelangen.
 
