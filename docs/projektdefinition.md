@@ -37,10 +37,10 @@ Priorität: **M** = muss (erster Prototyp), **S** = soll, **K** = kann. Quelle: 
 | F7 | Lautstärke mit Begrenzung (Kopfhörer) | M | neu | Poti am Modul oder Software, siehe O7 |
 | F8 | Einfachmodus: 3 Bänder, wenige Tasten | S | neu | |
 | F10 | WLAN nur zum Firmware-Update eingeschaltet, sonst aus. BLE aus | S | neu | Stör- und Stromgründe (T7) |
+| F15 | Watchdog, Brown-out, Neustart mit letzter Frequenz | S | Fork? | prüfen, was der Fork mitbringt (O13) |
 | F16 | Sendersuche UKW: Suchlauf findet die empfangbaren Sender und legt sie als Liste ab. Beim Drehen erscheinen zuerst nur diese | M | neu | Suche regelmässig wiederholbar, Vorschlag |
 | F17 | Sendersuche MW und KW: gespeichert wird nur, was Pegel und Signalqualität (Signal-Rausch-Verhältnis) erfüllt und wie ein Sender aussieht. Beim Drehen erscheinen zuerst nur diese | M | neu | Schwellen und Erkennung offen (O24), Vorschlag |
 | F18 | Freier Suchlauf als wählbare Option (UKW, MW, KW) | C | neu | zweitrangig |
-| F15 | Watchdog, Brown-out, Neustart mit letzter Frequenz | S | Fork? | prüfen, was der Fork mitbringt (O13) |
 
 ## 3. Anforderungen
 
