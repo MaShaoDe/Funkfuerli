@@ -1,6 +1,6 @@
 # Funkfüürli: Projektdefinition (Stand 2026-11-25, Entwurf)
 
-Die Nummern (F1, G3, T5, O7 ...) gelten in allen Dokumenten des Projekts.
+Die Nummern (F1, G3, T5, O7 ...) gelten in allen Dokumenten des Projekts. Was Marcel beschlossen hat, steht in [festlegungen.md](festlegungen.md) und wird nicht neu gefragt.
 
 Notfallradio mit UKW, MW und KW, Akku mit Ladeanschluss, 3D-gedrucktem Gehäuse und eigener Platine. Open Source. Grundsatz: offene Software forken und anpassen, Hardware (Platine, Gehäuse) ist ein eigenes Design.
 
