@@ -172,7 +172,7 @@ Autor und Copyright: `FerienBSD aka Marcel Sauder`.
 | O6 | LDO: AP2112K-3.3 vorgeschlagen. Offen: Dropout-Kurve und Abschaltschwelle im Breadboard-Test 7d, ESP32-Einspeisung am 3V3-Pin bestätigen | Vorschlag, Messung offen |
 | O7 | Verstärker: PAM8403 als Vorschlag. Offen: Eingangswiderstand HW-012 messen, MW-Störung (Test 5e), Resonanzraum K 50, Lautsprecher-Box (Ohm, Watt, Masse), Lautstärke per Poti (A) oder Software (B). Lautstärkebegrenzung für Kopfhörer: TPA6132A2 hat feste Maximalleistung, Verstärkung wählen | offen |
 | O9 | Ferritstab: SL8X50MW70T (8 x 50 mm, AN383) oder Stab aus dem Sortiment mit 180 bis 450 µH, Induktivität messen. FM an FMI, MW/LW an AMI. KW-Eingang (FMI oder AMI) offen bis Rev-A-Test P4 und P5, danach KW-Umschalter in Rev B | Vorschlag, KW offen |
-| O10 | Stückliste (BOM), Blockschaltbild und Verdrahtungsplan für den Breadboard-Test | erledigt (docs/bom-breadboard.md, docs/breadboard.md) |
+| O10 | Stückliste (BOM), Blockschaltbild und Verdrahtungsplan für den Breadboard-Test | erledigt (docs/cookbook-prototyp.md) |
 | O12 | Lizenzfrage L2 beim Maintainer klären | offen |
 | O13 | Was bringt der Fork an Watchdog und Neustart mit (F15) | offen |
 | O14 | Kleber festlegen (T10) | offen |

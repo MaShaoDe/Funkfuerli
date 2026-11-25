@@ -47,4 +47,4 @@ KiCad 9, Gerber im Repo, erst nach Stufe 2. Siehe [konzept.md](konzept.md) Absch
 
 *Copyright FerienBSD aka Marcel Sauder. Doku unter CC-BY-4.0.*
 
-* Breadboard-Test ohne RX-Board: [breadboard.md](breadboard.md), [bom-breadboard.md](bom-breadboard.md)
+* Stufe 1 (Verdrahtung, Test, Stückliste): [cookbook-prototyp.md](cookbook-prototyp.md)
