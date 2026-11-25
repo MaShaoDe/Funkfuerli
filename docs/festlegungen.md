@@ -19,6 +19,7 @@ Was Marcel beschlossen hat. **Nicht neu fragen.** Änderung nur auf seine ausdr�
 | Kopfhörer | Eigener Verstärker TPA6132A2 (der Chip kann keine Kopfhörer treiben) | 2026-11 |
 | Spannungsregler | LDO AP2112K-3.3, Schottky-Diode als Verpolschutz in der Lastleitung | 2026-11 |
 | Ferritstab | SL8X50MW70T (8 x 50 mm) oder Stab aus dem Sortiment mit 180 bis 450 µH | 2026-11 |
+| Akku im Prototyp | LiPo 103665 mit Schutzplatine | 2026-11-25 |
 | Strom | 1 Zelle, linearer Lader (TP4056-Typ mit Schutz), kein Schaltlader im Gerät, Laden und Hören nicht gleichzeitig | 2026-11-15 |
 | Laden | DC-Hohlsteckerbuchse 5.5 mm Aussendurchmesser, nur 5 V und 1 A, beschriftet, mit Überspannungsschutz, Filter und Glättung. Kein USB-C zum Laden | 2026-11 |
 | Antennen | Teleskop an BNC-Buchse am Gehäuse (UKW und KW), dünnes 50-Ohm-Koax zum RX-Board, ab Rev B U.FL steckbar, Drahtantenne an Polklemme (Querbohrung und Bananenbuchse), Ferritstab für MW | 2026-11 |
@@ -35,7 +36,7 @@ Was Marcel beschlossen hat. **Nicht neu fragen.** Änderung nur auf seine ausdr�
 |---|---|---|
 | Flashen | Erstes Flashen per USB vor dem Einstecken des ESP32, danach OTA per Menüeintrag Update, kein USB am Gehäuse | O22 (Partitionsgrössen des Fork prüfen) |
 | Lautsprecher | Typ und Anzahl offen, Kandidat Visaton K 50. Muster liegen vor | O7 |
-| Akku | Prototyp LiPo 103665 mit Schutzplatine. Endgültig offen: 103665, NCR18650B im Halter, 14500 | O5 |
+| Akku im Gerät | Endgültig offen: LiPo 103665, NCR18650B im Halter oder 14500 | O5 |
 
 ## Offen
 

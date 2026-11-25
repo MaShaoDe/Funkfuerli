@@ -1,4 +1,6 @@
-# Funkfüürli: Stückliste (Stand 2026-11-15, Entwurf)
+# Funkfüürli: Stückliste (Stand 2026-11-25, Entwurf)
+
+**Hinweis:** Für den Prototyp Stufe 1 gilt die BOM im [Cookbook](cookbook-prototyp.md), Abschnitt 9. Bei Widersprüchen gelten [Projektdefinition](projektdefinition.md) und Cookbook. Diese Datei bleibt nur als Entwurf für Stufe 2 und 3.
 
 Stückliste für den Prototyp und den späteren Kurssatz. Grundlage sind das [Konzept](konzept.md), das [Inventar](inventar.md), die [Anforderungen](anforderungen.md) und der [Pinplan](pinplan.md).
 
@@ -12,7 +14,7 @@ Bestand ist im [Inventar](inventar.md) geführt. Zu besorgen ist, was dort fehlt
 
 | Was | Menge | Bemerkung |
 |---|---|---|
-| Si4732-Modul | 1 | Noch nicht bestellt. Vorschlag: Mikroe AM/FM 2 Click (MIKROE-5793). Eigenes Mini-Modul später |
+| Si4732-Modul | 1 | Ersetzt durch das RX-Board Rev A (angekommen, siehe [rx-board.md](rx-board.md)) |
 | Drehencoder EC11 mit Taster, Drehknopf | 1 | |
 | Klinkenbuchse 3.5 mm mit Schaltkontakt | 1 | |
 | BNC-Buchse, Teleskopantenne, Ferritstab MW | je 1 | Ferritstab-Typ klären |
@@ -25,7 +27,7 @@ Bestand ist im [Inventar](inventar.md) geführt. Zu besorgen ist, was dort fehlt
 | Kleber für den Test (Heissleim, neutrales Silikon, Epoxid) | kleine Mengen | Noch nicht entschieden |
 
 Vorhanden und ausreichend für den Prototyp: ESP32-S3-DevKitC-1, Display 2.0" ST7789V, PAM8403 HW-012, TP4056-Lader, LiPo 103665, NCR18650B mit Halter, 14500, Visaton K 50.
-Beim Prototyp bewusst beide Akku-Varianten (LiPo und 18650) aufbauen und vergleichen.
+Akku im Prototyp: LiPo 103665 (Stand 2026-11-25, siehe O5 in der Projektdefinition). 18650 und 14500 sind für den Prototyp nicht vorgesehen.
 
 ## 1. Module
 
@@ -33,7 +35,7 @@ Beim Prototyp bewusst beide Akku-Varianten (LiPo und 18650) aufbauen und verglei
 |---|---|---|---|---|---|---|
 | 1 | ESP32-S3-DevKitC-1 N16R8 | 1 | 10 | Modul, gesteckt | Stückzahl offen (Nr 1) | |
 | 2 | Display 2.0" TFT, ST7789V, 240x320 | 1 | 10 | Modul, Stiftleiste | 4 (Nr 15) | Fehlmenge 6 |
-| 3 | Si4732-Empfängermodul | 1 | 10 | Modul, gesteckt | nein, noch nicht bestellt | Siehe Abschnitt "Si4732-Modul" |
+| 3 | RX-Board Rev A (Si4732) | 1 | 10 | Modul, gesteckt | angekommen | Siehe [rx-board.md](rx-board.md) |
 | 4 | Verstärker PAM8403, HW-012 | 1 | 10 | Modul | 20 (Nr 28) | Reicht |
 | 5 | Lader TP4056 mit Schutz | 1 | 10 | Modul | Stückzahl offen (Nr 25) | Micro-USB im Prototyp, später USB-C. Schutz gegen Tiefentladung nur mit dem Schutzmodul (siehe Abschnitt "THT-Konflikte") |
 
@@ -46,7 +48,7 @@ Beim Prototyp bewusst beide Akku-Varianten (LiPo und 18650) aufbauen und verglei
 | 6b | Alternative: 14500 oder 14650 | 1 | | Halter gelötet | 14500: mindestens 4 (Nr 24) | 14650 noch nicht im Inventar |
 | 7 | JST-Stecker für LiPo | 1 | 10 | THT | fehlt | |
 | 8 | Hauptschalter (Schiebeschalter) | 1 | 10 | THT | nein | |
-| 9 | LDO 3.3 V, THT | 1 | 10 | THT | nein | Vorschlag MCP1700 (TO-92, 250 mA), im Datenblatt prüfen. Reicht für den Si4732, nicht für den ESP32 (siehe Konzept Abschnitt 6) |
+| 9 | LDO 3.3 V, THT | 1 | 10 | THT | nein | Vorschlag AP2112K-3.3 (SOT-23-5, 600 mA), siehe Cookbook M9. MCP1700 (250 mA) reicht nicht für den ESP32 |
 | 10 | Pufferkondensator (Elko) | 1 | 10 | THT | nein | Wert beim Prototyp festlegen |
 | 11 | Ferrit-Drosselperle in der Versorgung | 1 | 10 | THT | nein | Typ offen |
 | 11a | Schottky-Diode 1N5819 (1 A, DO-41) als Verpolschutz | 1 | 10 | THT | nein | Entschieden 2026-11-15. In der Lastleitung, nicht im Ladepfad |
@@ -110,7 +112,7 @@ Der Prototyp wird auf Lochraster gebaut (Entscheid 2026-11-15). Wenn die Tests b
 
 1. Empfang UKW, MW, KW mit Teleskopantenne und Drahtantenne, Vergleich mit einem bekannten Radio.
 2. Störtest nach Konzept Abschnitt 8: Modul, Verstärker und Lader einzeln zuschalten, MW und KW auf leerem Kanal messen.
-3. Laufzeit mit LiPo und mit 18650, Stromaufnahme mit und ohne Display.
+3. Laufzeit mit LiPo, Stromaufnahme mit und ohne Display.
 4. Bedienung: Abstimmung mit dem Encoder, Anzeige, Lautstärke.
 5. Falltest aus 1 m (nur mit Testgehäuse, nicht mit offenem Lochrasteraufbau).
 
