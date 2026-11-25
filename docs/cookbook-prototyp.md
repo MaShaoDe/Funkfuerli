@@ -323,7 +323,7 @@ Gilt für genau 1 Prototyp auf dem Breadboard. Fehlende Angaben stehen als `____
 | M3 | Display TFT | 1 | 2.0", ST7789V, 240x320, SPI | 3.3 V | | Modul | 2 | vorhanden, Pinbelegung `____` |
 | M4 | OLED | 1 | 0.96", SSD1306, 128x64, I2C 0x3C | `____` | | Modul | 3a | vorhanden |
 | M5 | Verstärkermodul | 1 | PAM8403 HW-012 | 2.5 bis 5.5 V (laut Datenblatt Diodes) | | Modul | 5 | vorhanden |
-| M6 | Lautsprecher | 1 | Typ offen, Kandidat Visaton K 50 | `____` (Ohm, Watt ungeprüft) | | `____` | 5 | vorhanden, Typ offen |
+| M6 | Lautsprecher | 1 | Typ offen, Kandidat Visaton K 50 (Art. 2901) | 8 Ω laut Stückliste, Watt `____` (ungeprüft) | | `____` | 5 | vorhanden, Typ offen |
 | M7 | Lademodul | 1 | TP4056 mit Schutz, Micro-USB | 5 V Eingang | | Modul | 7 | vorhanden |
 | M8 | Akku | 1 | LiPo 103665, 3000 mAh, mit Schutzplatine | 3.7 V | | `____` | 7 | vorhanden, Stecker fehlt |
 | M9 | LDO | 1 | AP2112K-3.3 als Modul oder auf Adapterplatine | 3.3 V, 600 mA, Eingang 2.5 bis 6 V | `____` | SOT-23-5 | 7 | beschaffen |
@@ -359,7 +359,7 @@ Gilt für genau 1 Prototyp auf dem Breadboard. Fehlende Angaben stehen als `____
 
 | Nr | Name | Menge | Wert | Leistung oder Spannung | Toleranz | Bauform | Status |
 |---|---|---|---|---|---|---|---|
-| D1 | Schottky-Diode | 1 | 1N5819 | `____` | | `____` | Sortiment |
+| D1 | Schottky-Diode | 1 | 1N5819 | 1 A (laut Stückliste), Sperrspannung `____` | | DO-41 | Sortiment |
 | FB1 | Ferritperle | 1 | `____` | `____` | | `____` | Sortiment |
 | C10 | Elko | 1 | 220 µF | 10 V oder mehr | `____` | `____` | Sortiment |
 | C11 | Elko | 1 | 10 µF (LDO-Ausgang) | `____` | `____` | `____` | Sortiment |
