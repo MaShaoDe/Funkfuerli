@@ -1,4 +1,4 @@
-# Funkfüürli: Projektdefinition (Stand 2026-11-19, Entwurf)
+# Funkfüürli: Projektdefinition (Stand 2026-11-25, Entwurf)
 
 Die Nummern (F1, G3, T5, O7 ...) gelten in allen Dokumenten des Projekts.
 
@@ -168,10 +168,10 @@ Autor und Copyright: `FerienBSD aka Marcel Sauder`.
 | Nr | Punkt | Stand |
 |---|---|---|
 | O1 | ESP32-S3-DevKitC-1: vorhandene Module durchgehen (Stückzahl, Masse, Reihenabstand, Aufdruck N16R8 oder anderes), Modul wählen | offen |
-| O2 | Si4732-Modul: 1 Stück bestellt. Datenblatt prüfen (getrennte FM/AM-Eingänge, Audio L/R, Quarz, Raster) | bestellt, Lieferung offen |
-| O3 | RX-Board Rev A: Lieferung abwarten. Rev A hat kein KW, Rev B (mit KW über AMI, Umschalter) nötig. KW-Test erst mit Rev B | in Fertigung |
+| O2 | Si4732-Modul: überholt durch das RX-Board Rev A (O3). Pinbelegung, Beschaltung und Datenblatt-Punkte stehen im RX-Board-Repo | überholt |
+| O3 | RX-Board Rev A: angekommen, noch nicht getestet, Stiftleisten J1, J2, J3 anzulöten. Rev A hat keinen KW-Zweig. Die KW-Versuche P4 und P5 laufen trotzdem an Rev A (siehe O9). Rev B (KW-Beschaltung, Umschalter) folgt nach den Tests | angekommen, Tests offen |
 | O4 | Display 2.0" ST7789V: Pins, Stiftleiste, Anpassung von Auflösung und Layout im Fork | offen |
-| O5 | Akku: Kapazität 18650 und 14500 messen, Aufdrucke LiPo-Schutz lesen, 14650 aufnehmen oder streichen, JST und Verpolschutz, Vergleich im Prototyp | offen |
+| O5 | Akku im Prototyp: LiPo 103665 mit Schutzplatine (Cookbook). Offen: Kapazität messen, Aufdrucke der Schutzplatine lesen, JST-Stecker und Verpolschutz. 18650, 14500 und 14650 sind für den Prototyp nicht vorgesehen. Ob sie im Gerät bleiben (T5), ist offen | offen |
 | O6 | LDO: AP2112K-3.3 vorgeschlagen. Offen: Dropout-Kurve und Abschaltschwelle im Breadboard-Test 7d, ESP32-Einspeisung am 3V3-Pin bestätigen | Vorschlag, Messung offen |
 | O7 | Verstärker: PAM8403 als Vorschlag. Offen: Eingangswiderstand HW-012 messen, MW-Störung (Test 5e), Resonanzraum K 50, Lautsprecher-Box (Ohm, Watt, Masse), Lautstärke per Poti (A) oder Software (B). Lautstärkebegrenzung für Kopfhörer: TPA6132A2 hat feste Maximalleistung, Verstärkung wählen | offen |
 | O9 | Ferritstab: SL8X50MW70T (8 x 50 mm, AN383) oder Stab aus dem Sortiment mit 180 bis 450 µH, Induktivität messen. FM an FMI, MW/LW an AMI. KW-Eingang (FMI oder AMI) offen bis Rev-A-Test P4 und P5, danach KW-Umschalter in Rev B | Vorschlag, KW offen |
